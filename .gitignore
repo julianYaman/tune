@@ -1,0 +1,8 @@
+# JetBrains folder
+.idea
+
+# Production config file, create your own
+config.json
+
+# Node Modules
+node_modules
