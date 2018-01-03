@@ -49,7 +49,24 @@ client.on('message', async msg => {
   command = command.slice(PREFIX.length)
 
   if(command === "radio"){
-    msg.reply("Hello!")
+    const voiceChannel = msg.member.voiceChannel
+    if(voiceChannel) {
+      voiceChannel.join().then(connection => {
+        msg.channel.send("Now playing **iLoveRadio**!")
+      }).catch(console.error)
+    }else{
+      msg.reply('You need to join a voice channel first!')
+    }
+  }
+
+  if(command === "leave" || command === "stop" ){
+    const voiceChannel = msg.member.voiceChannel
+    if(voiceChannel) {
+      msg.channel.send("I´m leaving the channel now!")
+      voiceChannel.leave()
+    }else{
+      msg.reply('no')
+    }
   }
 })
 
