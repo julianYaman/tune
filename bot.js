@@ -52,7 +52,18 @@ client.on('message', async msg => {
     const voiceChannel = msg.member.voiceChannel
     if(voiceChannel) {
       voiceChannel.join().then(connection => {
-        console.log(`Joined a channel (Name: ${voiceChannel.name}) and now playing iLoveRadio`)
+        let userLimit
+        if(voiceChannel.userLimit === 0){
+          userLimit = "unlimited"
+        }else{
+          userLimit = voiceChannel.userLimit
+        }
+        console.log(`\nJoined a channel and now playing iLoveRadio! Here is some data:\n 
+        Channel name: ${voiceChannel.name}\n 
+        userLimit: ${userLimit}\n 
+        guild: ${voiceChannel.guild.name}\n 
+        guildId: ${voiceChannel.guild.id}\n
+        membercount: ${voiceChannel.guild.memberCount}\n`)
         msg.channel.send("Now playing **iLoveRadio**! If I´m not playing music, just type the command ``" + PREFIX + "radio`` again. :wink:")
 
         // Playing the music!!!
