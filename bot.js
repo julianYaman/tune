@@ -52,16 +52,22 @@ client.on('message', async msg => {
     const voiceChannel = msg.member.voiceChannel
     if(voiceChannel) {
       voiceChannel.join().then(connection => {
-        msg.channel.send("Now playing **iLoveRadio**!")
+        console.log(`Joined a channel (Name: ${voiceChannel.name}) and now playing iLoveRadio`)
+        msg.channel.send("Now playing **iLoveRadio**! If I´m not playing music, just type the command ``" + PREFIX + "radio`` again. :wink:")
+
+        // Playing the music!!!
+        const dispatcher = msg.guild.voiceConnection.playStream("http://stream01.iloveradio.de/iloveradio1.mp3")
+
       }).catch(console.error)
     }else{
-      msg.reply('You need to join a voice channel first!')
+      msg.reply('you need to join a voice channel first!')
     }
   }
 
   if(command === "leave" || command === "stop" ){
     const voiceChannel = msg.member.voiceChannel
     if(voiceChannel) {
+      console.log("Leaving a channel and stopped playing iLoveRadio")
       msg.channel.send("I´m leaving the channel now!")
       voiceChannel.leave()
     }else{
