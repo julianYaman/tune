@@ -75,6 +75,27 @@ client.on('message', async msg => {
     }
   }
 
+  if(command === "help"){
+    msg.delete().catch(console.error)
+    msg.author.send({
+      embed : {
+        color: 3447003,
+        title: 'I Love Radio -> Commands',
+        fields: [
+          {
+            name: PREFIX + 'radio',
+            value: 'If you are in a channel, I will join to your channel and start playing the web radio'
+          },
+          {
+            name: PREFIX + 'stop or ' + PREFIX + 'leave',
+            value: 'Stops playing the music (if you are in a voice channel) and I will leave the channel'
+          }
+        ],
+        timestamp: new Date()
+      }
+    })
+  }
+
   if(command === "leave" || command === "stop" ){
     const voiceChannel = msg.member.voiceChannel
     if(voiceChannel) {

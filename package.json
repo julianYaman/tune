@@ -1,6 +1,6 @@
 {
   "name": "iloveradio-discord-bot",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "A bot where you can here the web radio iLoveRadio",
   "main": "bot.js",
   "scripts": {
