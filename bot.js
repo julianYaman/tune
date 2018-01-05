@@ -99,7 +99,7 @@ client.on('message', async msg => {
 
           // logging channel data
           console.log(`\nJoined a channel and now playing iLoveRadio! Here is some data:\n 
-          Radio type: main
+          Radio type: main\n
           Channel name: ${voiceChannel.name}\n 
           userLimit: ${userLimit}\n 
           guild: ${voiceChannel.guild.name}\n 
@@ -146,7 +146,7 @@ client.on('message', async msg => {
 
           // logging channel data
           console.log(`\nJoined a channel and now playing iLoveRadio! Here is some data:\n 
-          Radio type: THE BATTLE
+          Radio type: THE BATTLE\n
           Channel name: ${voiceChannel.name}\n 
           userLimit: ${userLimit}\n 
           guild: ${voiceChannel.guild.name}\n 
@@ -194,7 +194,7 @@ client.on('message', async msg => {
 
           // logging channel data
           console.log(`\nJoined a channel and now playing iLoveRadio! Here is some data:\n 
-          Radio type: #DREIST
+          Radio type: #DREIST\n
           Channel name: ${voiceChannel.name}\n 
           userLimit: ${userLimit}\n 
           guild: ${voiceChannel.guild.name}\n 
@@ -242,7 +242,7 @@ client.on('message', async msg => {
 
           // logging channel data
           console.log(`\nJoined a channel and now playing iLoveRadio! Here is some data:\n 
-          Radio type: TOP 100 Charts
+          Radio type: TOP 100 Charts\n
           Channel name: ${voiceChannel.name}\n 
           userLimit: ${userLimit}\n 
           guild: ${voiceChannel.guild.name}\n 
@@ -296,7 +296,7 @@ client.on('message', async msg => {
           },
           {
             name: PREFIX + 'list or ' + PREFIX + 'radiolist',
-            value: 'Sends a list will all radios available'
+            value: 'Sends a list with all radios available'
           }
         ],
         timestamp: new Date()
