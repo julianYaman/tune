@@ -1,4 +1,5 @@
 {
   "TOKEN": "<token>",
-  "PREFIX": "+"
+  "PREFIX": "+",
+  "VERSION": "1.3.0"
 }

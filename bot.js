@@ -289,6 +289,14 @@ client.on('message', async msg => {
           {
             name: PREFIX + 'stop or ' + PREFIX + 'leave',
             value: 'Stops playing the music (if you are in a voice channel) and I will leave the channel'
+          },
+          {
+            name: PREFIX + 'invite',
+            value: 'The bot will send an invite link to you so you can invite the bot to your server'
+          },
+          {
+            name: PREFIX + 'list or ' + PREFIX + 'radiolist',
+            value: 'Sends a list will all radios available'
           }
         ],
         timestamp: new Date()
@@ -302,6 +310,34 @@ client.on('message', async msg => {
       msg.channel.send("❌ Message to the owner of the server: **Please give the right permissions to me so I can delete this message.**")
     })
     msg.author.send("Add the bot with the following link to your server: https://discordapp.com/oauth2/authorize?client_id=398195643371356170&scope=bot&permissions=36711488")
+  }
+
+  if(command === "list" || command === "radiolist"){
+    msg.channel.send({
+      embed : {
+        color: 3447003,
+        title: 'I Love Radio -> Radio list ',
+        fields: [
+          {
+            name: PREFIX + 'radio',
+            value: 'Radio: **I LOVE RADIO**'
+          },
+          {
+            name: PREFIX + 'radio 1',
+            value: 'Radio: **I LOVE RADIO THE BATTLE**'
+          },
+          {
+            name: PREFIX + 'radio 2',
+            value: 'Radio: **I LOVE RADIO #DREIST**'
+          },
+          {
+            name: PREFIX + 'radio 3',
+            value: 'Radio: **I LOVE RADIO TOP 100 CHARTS**'
+          }
+        ],
+        timestamp: new Date()
+      }
+    })
   }
 
   if(command === "leave" || command === "stop" ){
