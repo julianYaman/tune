@@ -75,34 +75,153 @@ client.on('message', async msg => {
   command = command.slice(PREFIX.length)
 
   if(command === "radio"){
-    const voiceChannel = msg.member.voiceChannel
-    if(voiceChannel) {
-      voiceChannel.join().then(connection => {
-        let userLimit
-        if(voiceChannel.userLimit === 0){
-          userLimit = "unlimited"
-        }else{
-          userLimit = voiceChannel.userLimit
-        }
-        console.log(`\nJoined a channel and now playing iLoveRadio! Here is some data:\n 
-        Channel name: ${voiceChannel.name}\n 
-        userLimit: ${userLimit}\n 
-        guild: ${voiceChannel.guild.name}\n 
-        guildId: ${voiceChannel.guild.id}\n
-        membercount (guild): ${voiceChannel.guild.memberCount}\n
-        current amount of people in the same channel: ${voiceChannel.members.size - 1}`)
-        msg.channel.send("🎵 Now playing **iLoveRadio**! If I´m not playing music, just type the command ``" + PREFIX + "radio`` again. :wink:")
 
-        // Playing the music!!!
-        const dispatcher = msg.guild.voiceConnection.playStream("http://stream01.iloveradio.de/iloveradio1.mp3")
+    console.log(args)
 
-      }).catch(e => {
-        msg.channel.send("❌ I can´t join to your channel because I don´t have the permissions to do that.")
-        // console.log(e)
-      })
-    }else{
-      msg.reply('you need to join a voice channel first!')
+    // If no other argument was given, then the bot will play the main radio
+    if(args[1] === undefined) {
+
+      // Voice channel
+      const voiceChannel = msg.member.voiceChannel
+
+      // If the user is in a channel
+      if (voiceChannel) {
+        // Then try to join his channel
+        voiceChannel.join().then(connection => {
+
+          // User limit property from the voice channel
+          let userLimit
+          if (voiceChannel.userLimit === 0) {
+            userLimit = "unlimited"
+          } else {
+            userLimit = voiceChannel.userLimit
+          }
+
+          // logging channel data
+          console.log(`\nJoined a channel and now playing iLoveRadio! Here is some data:\n 
+          Radio type: main
+          Channel name: ${voiceChannel.name}\n 
+          userLimit: ${userLimit}\n 
+          guild: ${voiceChannel.guild.name}\n 
+          guildId: ${voiceChannel.guild.id}\n
+          membercount (guild): ${voiceChannel.guild.memberCount}\n
+          current amount of people in the same channel: ${voiceChannel.members.size - 1}`)
+
+          // Sending a response that the bot is now playing the music
+          msg.channel.send("🎵 Now playing **I LOVE RADIO**! If I´m not playing music, just type the command ``" + PREFIX + "radio`` again. :wink:")
+
+          // Playing the music!!!
+          const dispatcher = msg.guild.voiceConnection.playStream("http://stream01.iloveradio.de/iloveradio1.mp3")
+
+          // Or catch any error
+        }).catch(e => {
+          // Error message
+          msg.channel.send("❌ I can´t join to your channel because I don´t have the permissions to do that.")
+          // console.log(e)
+        })
+
+      } else {
+        // User must join a channel first before the bot can do something
+        msg.reply('you need to join a voice channel first!')
+      }
     }
+
+    // I LOVE THE BATTLE - Web radio
+    if(args[1] === "1"){
+      // Voice channel
+      const voiceChannel = msg.member.voiceChannel
+
+      // If the user is in a channel
+      if (voiceChannel) {
+        // Then try to join his channel
+        voiceChannel.join().then(connection => {
+
+          // User limit property from the voice channel
+          let userLimit
+          if (voiceChannel.userLimit === 0) {
+            userLimit = "unlimited"
+          } else {
+            userLimit = voiceChannel.userLimit
+          }
+
+          // logging channel data
+          console.log(`\nJoined a channel and now playing iLoveRadio! Here is some data:\n 
+          Radio type: THE BATTLE
+          Channel name: ${voiceChannel.name}\n 
+          userLimit: ${userLimit}\n 
+          guild: ${voiceChannel.guild.name}\n 
+          guildId: ${voiceChannel.guild.id}\n
+          membercount (guild): ${voiceChannel.guild.memberCount}\n
+          current amount of people in the same channel: ${voiceChannel.members.size - 1}`)
+
+          // Sending a response that the bot is now playing the music
+          msg.channel.send("🎵 Now playing **I LOVE THE BATTLE**! If I´m not playing music, just type the command ``" + PREFIX + "radio`` again. :wink:")
+
+          // Playing the music!!!
+          const dispatcher = msg.guild.voiceConnection.playStream("http://stream01.iloveradio.de/iloveradio3.mp3")
+
+          // Or catch any error
+        }).catch(e => {
+          // Error message
+          msg.channel.send("❌ I can´t join to your channel because I don´t have the permissions to do that.")
+          // console.log(e)
+        })
+
+      } else {
+        // User must join a channel first before the bot can do something
+        msg.reply('you need to join a voice channel first!')
+      }
+
+    }
+
+    // I LOVE #DREIST - Web radio
+    if(args[1] === "2"){
+      // Voice channel
+      const voiceChannel = msg.member.voiceChannel
+
+      // If the user is in a channel
+      if (voiceChannel) {
+        // Then try to join his channel
+        voiceChannel.join().then(connection => {
+
+          // User limit property from the voice channel
+          let userLimit
+          if (voiceChannel.userLimit === 0) {
+            userLimit = "unlimited"
+          } else {
+            userLimit = voiceChannel.userLimit
+          }
+
+          // logging channel data
+          console.log(`\nJoined a channel and now playing iLoveRadio! Here is some data:\n 
+          Radio type: #DREIST
+          Channel name: ${voiceChannel.name}\n 
+          userLimit: ${userLimit}\n 
+          guild: ${voiceChannel.guild.name}\n 
+          guildId: ${voiceChannel.guild.id}\n
+          membercount (guild): ${voiceChannel.guild.memberCount}\n
+          current amount of people in the same channel: ${voiceChannel.members.size - 1}`)
+
+          // Sending a response that the bot is now playing the music
+          msg.channel.send("🎵 Now playing **I LOVE #DREIST**! If I´m not playing music, just type the command ``" + PREFIX + "radio`` again. :wink:")
+
+          // Playing the music!!!
+          const dispatcher = msg.guild.voiceConnection.playStream("http://stream01.iloveradio.de/iloveradio6.mp3")
+
+          // Or catch any error
+        }).catch(e => {
+          // Error message
+          msg.channel.send("❌ I can´t join to your channel because I don´t have the permissions to do that.")
+          // console.log(e)
+        })
+
+      } else {
+        // User must join a channel first before the bot can do something
+        msg.reply('you need to join a voice channel first!')
+      }
+
+    }
+
   }
 
   if(command === "help"){
