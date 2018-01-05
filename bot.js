@@ -24,18 +24,18 @@ client.on('warn', console.warn)
 client.on('error', console.error)
 
 client.on('ready', () => {
-    console.log('Starting Bot...\nNode version: ' + process.version + '\nDiscord.js version: ' + Discord.version + '\n')
-    console.log("This Bot is online! Running on version " + VERSION)
-    client.user.setPresence({
-      status: "online",
-      game: {
-        name: `on ${client.guilds.size} servers! ${PREFIX}help`
-      }
+  console.log('Starting Bot...\nNode version: ' + process.version + '\nDiscord.js version: ' + Discord.version + '\n')
+  console.log("This Bot is online! Running on version " + VERSION)
+  client.user.setPresence({
+    status: "online",
+    game: {
+      name: `on ${client.guilds.size} servers! ${PREFIX}help`
+    }
     }).catch(e => {
       console.error(e)
     })
-  }
-)
+  console.log(`Ready to serve on ${client.guilds.size} servers for a total of ${client.users.size} users.`)
+})
 
 client.on('disconnect', () => console.log("I disconnected currently but I will try to reconnect!"))
 
@@ -45,7 +45,6 @@ client.on('reconnecting', () => console.log("Reconnecting..."))
 client.on('guildCreate', guild => {
   console.log(`Joined a new guild -> ${guild.name}. (id: ${guild.id}) This guild has ${guild.memberCount} members!`)
   client.user.setPresence({
-    status: "online",
     game: {
       name: `on ${client.guilds.size} servers! ${PREFIX}help`
     }
@@ -58,7 +57,6 @@ client.on('guildCreate', guild => {
 client.on('guildDelete', guild => {
   console.log(`I have been removed from -> ${guild.name}. (id: ${guild.id})`)
   client.user.setPresence({
-    status: "online",
     game: {
       name: `on ${client.guilds.size} servers! ${PREFIX}help`
     }
@@ -91,7 +89,8 @@ client.on('message', async msg => {
         userLimit: ${userLimit}\n 
         guild: ${voiceChannel.guild.name}\n 
         guildId: ${voiceChannel.guild.id}\n
-        membercount (guild): ${voiceChannel.guild.memberCount}\n`)
+        membercount (guild): ${voiceChannel.guild.memberCount}\n
+        current amount of people in the same channel: ${voiceChannel.members.size - 1}`)
         msg.channel.send("🎵 Now playing **iLoveRadio**! If I´m not playing music, just type the command ``" + PREFIX + "radio`` again. :wink:")
 
         // Playing the music!!!
