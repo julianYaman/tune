@@ -13,7 +13,11 @@ try {
 const client = new Discord.Client({disableEveryone: true})
 
 // Create a config file like the example-config.json
-const { TOKEN, PREFIX, VERSION} = require("./config.json")
+if(process.env.TOKEN && process.env.PREFIX && process.env.VERSION) {
+  var {TOKEN, PREFIX, VERSION} = process.env
+}else{
+  var {TOKEN, PREFIX, VERSION} = require('./config.json')
+}
 
 client.on('warn', console.warn)
 
