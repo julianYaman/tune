@@ -10,22 +10,30 @@ try {
   console.error("In case you´ve not installed any required module: \nPlease run 'npm install' and ensure it passes with no errors!")
   process.exit()
 }
-const client = new Discord.Client()
+const client = new Discord.Client({disableEveryone: true})
 
 // Create a config file like the example-config.json
-const { TOKEN, PREFIX} = require("./config.json")
+const { TOKEN, PREFIX, VERSION} = require("./config.json")
 
 client.on('warn', console.warn)
 
 client.on('error', console.error)
 
 client.on('ready', () => {
-    console.log("This Bot is online!")
-    console.log('Starting Bot...\nNode version: ' + process.version + '\nDiscord.js version: ' + Discord.version)
+    console.log('Starting Bot...\nNode version: ' + process.version + '\nDiscord.js version: ' + Discord.version + '\n')
+    console.log("This Bot is online! Running on version " + VERSION)
+    client.user.setPresence({
+      status: "online",
+      game: {
+        name: `on ${client.guilds.size} servers! ${PREFIX}help`
+      }
+    }).catch(e => {
+      console.error(e)
+    })
   }
 )
 
-client.on('disconnect', () => console.log("I disconnected but I will reconnect!"))
+client.on('disconnect', () => console.log("I disconnected currently but I will try to reconnect!"))
 
 client.on('reconnecting', () => console.log("Reconnecting..."))
 
@@ -63,20 +71,26 @@ client.on('message', async msg => {
         userLimit: ${userLimit}\n 
         guild: ${voiceChannel.guild.name}\n 
         guildId: ${voiceChannel.guild.id}\n
-        membercount: ${voiceChannel.guild.memberCount}\n`)
-        msg.channel.send("Now playing **iLoveRadio**! If I´m not playing music, just type the command ``" + PREFIX + "radio`` again. :wink:")
+        membercount (guild): ${voiceChannel.guild.memberCount}\n`)
+        msg.channel.send("🎵 Now playing **iLoveRadio**! If I´m not playing music, just type the command ``" + PREFIX + "radio`` again. :wink:")
 
         // Playing the music!!!
         const dispatcher = msg.guild.voiceConnection.playStream("http://stream01.iloveradio.de/iloveradio1.mp3")
 
-      }).catch(console.error)
+      }).catch(e => {
+        msg.channel.send("❌ I can´t join to your channel because I don´t have the permissions to do that.")
+        // console.log(e)
+      })
     }else{
       msg.reply('you need to join a voice channel first!')
     }
   }
 
   if(command === "help"){
-    msg.delete().catch(console.error)
+    msg.delete().catch(e => {
+      // console.error(e)
+      msg.channel.send("❌ Message to the owner of the server: **Please give the right permissions to me so I can delete this message.**")
+    })
     msg.author.send({
       embed : {
         color: 3447003,
