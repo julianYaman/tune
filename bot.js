@@ -222,6 +222,54 @@ client.on('message', async msg => {
 
     }
 
+    // I LOVE #DREIST - Web radio
+    if(args[1] === "3"){
+      // Voice channel
+      const voiceChannel = msg.member.voiceChannel
+
+      // If the user is in a channel
+      if (voiceChannel) {
+        // Then try to join his channel
+        voiceChannel.join().then(connection => {
+
+          // User limit property from the voice channel
+          let userLimit
+          if (voiceChannel.userLimit === 0) {
+            userLimit = "unlimited"
+          } else {
+            userLimit = voiceChannel.userLimit
+          }
+
+          // logging channel data
+          console.log(`\nJoined a channel and now playing iLoveRadio! Here is some data:\n 
+          Radio type: TOP 100 Charts
+          Channel name: ${voiceChannel.name}\n 
+          userLimit: ${userLimit}\n 
+          guild: ${voiceChannel.guild.name}\n 
+          guildId: ${voiceChannel.guild.id}\n
+          membercount (guild): ${voiceChannel.guild.memberCount}\n
+          current amount of people in the same channel: ${voiceChannel.members.size - 1}`)
+
+          // Sending a response that the bot is now playing the music
+          msg.channel.send("🎵 Now playing **I LOVE TOP 100 CHARTS**! If I´m not playing music, just type the command ``" + PREFIX + "radio`` again. :wink:")
+
+          // Playing the music!!!
+          const dispatcher = msg.guild.voiceConnection.playStream("http://stream01.iloveradio.de/iloveradio9.mp3")
+
+          // Or catch any error
+        }).catch(e => {
+          // Error message
+          msg.channel.send("❌ I can´t join to your channel because I don´t have the permissions to do that.")
+          // console.log(e)
+        })
+
+      } else {
+        // User must join a channel first before the bot can do something
+        msg.reply('you need to join a voice channel first!')
+      }
+
+    }
+
   }
 
   if(command === "help"){
