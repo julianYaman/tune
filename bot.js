@@ -126,6 +126,14 @@ client.on('message', async msg => {
     })
   }
 
+  if(command === "invite"){
+    msg.delete().catch(e => {
+      // console.error(e)
+      msg.channel.send("❌ Message to the owner of the server: **Please give the right permissions to me so I can delete this message.**")
+    })
+    msg.author.send("Add the bot with the following link to your server: https://discordapp.com/oauth2/authorize?client_id=398195643371356170&scope=bot&permissions=36711488")
+  }
+
   if(command === "leave" || command === "stop" ){
     const voiceChannel = msg.member.voiceChannel
     if(voiceChannel) {
