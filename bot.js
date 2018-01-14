@@ -13,10 +13,15 @@ try {
 const client = new Discord.Client({disableEveryone: true})
 
 // Create a config file like the example-config.json
-if(process.env.TOKEN && process.env.PREFIX && process.env.VERSION) {
-  var {TOKEN, PREFIX, VERSION} = process.env
+// Put EXPERIMENTAL to 1 if you are developing!
+var {TOKEN, PREFIX, VERSION, EXPERIMENTAL} = require('./config.json')
+
+let clientStatus
+
+if(EXPERIMENTAL === "1") {
+  clientStatus = "idle"
 }else{
-  var {TOKEN, PREFIX, VERSION} = require('./config.json')
+  clientStatus = "online"
 }
 
 client.on('warn', console.warn)
@@ -27,7 +32,7 @@ client.on('ready', () => {
   console.log('Starting Bot...\nNode version: ' + process.version + '\nDiscord.js version: ' + Discord.version + '\n')
   console.log("This Bot is online! Running on version " + VERSION)
   client.user.setPresence({
-    status: "online",
+    status: clientStatus,
     game: {
       name: `on ${client.guilds.size} servers! ${PREFIX}help`
     }
@@ -110,6 +115,13 @@ client.on('message', async msg => {
           // Sending a response that the bot is now playing the music
           msg.channel.send("🎵 Now playing **I LOVE RADIO**! If I´m not playing music, just type the command ``" + PREFIX + "radio`` again. :wink:")
 
+          // This message will be send if the bot is currently under an experimental mode or under maintenance
+          if(EXPERIMENTAL === "1"){
+            msg.channel.send("**This bot is currently on the EXPERIMENTAL MODE which means that it could happen the bot stops playing music.** \n" +
+              "You can see if the bot is in this mode when it is in the idle (orange dot at the profile pic) mode. \n" +
+              "When the bot is on 'online' (this green dot at the profile pic), it means the bot can be used without any upcoming issues.")
+          }
+
           // Playing the music!!!
           const dispatcher = msg.guild.voiceConnection.playStream("http://stream01.iloveradio.de/iloveradio1.mp3")
 
@@ -156,6 +168,13 @@ client.on('message', async msg => {
 
           // Sending a response that the bot is now playing the music
           msg.channel.send("🎵 Now playing **I LOVE THE BATTLE**! If I´m not playing music, just type the command ``" + PREFIX + "radio`` again. :wink:")
+
+          // This message will be send if the bot is currently under an experimental mode or under maintenance
+          if(EXPERIMENTAL === "1"){
+            msg.channel.send("**This bot is currently on the EXPERIMENTAL MODE which means that it could happen the bot stops playing music.** \n" +
+              "You can see if the bot is in this mode when it is in the idle (orange dot at the profile pic) mode. \n" +
+              "When the bot is on 'online' (this green dot at the profile pic), it means the bot can be used without any upcoming issues.")
+          }
 
           // Playing the music!!!
           const dispatcher = msg.guild.voiceConnection.playStream("http://stream01.iloveradio.de/iloveradio3.mp3")
@@ -205,6 +224,13 @@ client.on('message', async msg => {
           // Sending a response that the bot is now playing the music
           msg.channel.send("🎵 Now playing **I LOVE #DREIST**! If I´m not playing music, just type the command ``" + PREFIX + "radio`` again. :wink:")
 
+          // This message will be send if the bot is currently under an experimental mode or under maintenance
+          if(EXPERIMENTAL === "1"){
+            msg.channel.send("**This bot is currently on the EXPERIMENTAL MODE which means that it could happen the bot stops playing music.** \n" +
+              "You can see if the bot is in this mode when it is in the idle (orange dot at the profile pic) mode. \n" +
+              "When the bot is on 'online' (this green dot at the profile pic), it means the bot can be used without any upcoming issues.")
+          }
+
           // Playing the music!!!
           const dispatcher = msg.guild.voiceConnection.playStream("http://stream01.iloveradio.de/iloveradio6.mp3")
 
@@ -253,6 +279,14 @@ client.on('message', async msg => {
           // Sending a response that the bot is now playing the music
           msg.channel.send("🎵 Now playing **I LOVE TOP 100 CHARTS**! If I´m not playing music, just type the command ``" + PREFIX + "radio`` again. :wink:")
 
+          // This message will be send if the bot is currently under an experimental mode or under maintenance
+          if(EXPERIMENTAL === "1"){
+            msg.channel.send("**This bot is currently on the EXPERIMENTAL MODE which means that it could happen the bot stops playing music.** \n" +
+              "You can see if the bot is in this mode when it is in the idle (orange dot at the profile pic) mode. \n" +
+              "When the bot is on 'online' (this green dot at the profile pic), it means the bot can be used without any upcoming issues.\n\n" +
+              "Check the mode with **" + PREFIX + "botinfo**")
+          }
+
           // Playing the music!!!
           const dispatcher = msg.guild.voiceConnection.playStream("http://stream01.iloveradio.de/iloveradio9.mp3")
 
@@ -295,6 +329,10 @@ client.on('message', async msg => {
             value: 'The bot will send an invite link to you so you can invite the bot to your server'
           },
           {
+            name: PREFIX + 'botinfo',
+            value: 'Sends information about the bot'
+          },
+          {
             name: PREFIX + 'list or ' + PREFIX + 'radiolist',
             value: 'Sends a list with all radios available'
           }
@@ -302,6 +340,37 @@ client.on('message', async msg => {
         timestamp: new Date()
       }
     })
+  }
+
+  if(command === "botinfo"){
+
+    let mode
+
+    if(EXPERIMENTAL === "1"){
+      mode = "**EXPERIMENTAL (issues can appear)**"
+    }else{
+      mode = "normal"
+    }
+
+    msg.channel.send({ embed : {
+      title: "Bot information",
+      fields: [
+        {
+          name: "Servers",
+          value: `${client.guilds.size}`
+        },
+        {
+          name: "Serving for",
+          value: `${client.users.size} users in total`
+        },
+        {
+          name: "Mode",
+          value: mode
+        }
+      ],
+      description: "Information about the bot",
+      color: "3447003"
+    }})
   }
 
   if(command === "invite"){
