@@ -18,6 +18,7 @@ with which you can hear the web live radio <b><a href="http://www.iloveradio.de/
 
 - ``radio`` - If you are already in a voice channel, the bot will join in your channel and will begin to play the radio.
 - ``stop`` - Stops the music and the bot will leave the channel.
+- ``botinfo`` - Sends information about the bot.
 - ``radiolist`` - Sends you a list with all available web radios which you can hear with the bot.
 - ``help`` - Guess it.
 
