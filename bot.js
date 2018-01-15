@@ -423,3 +423,5 @@ client.on('message', async msg => {
 
 
 client.login(TOKEN).catch(e => console.log(e))
+
+process.on("unhandledRejection", (PromiseRejection) => console.error(`Promise Error -> ${PromiseRejection}`))
