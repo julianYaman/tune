@@ -28,7 +28,7 @@ client.on('warn', console.warn)
 
 client.on('error', console.error)
 
-client.on('ready', () => {
+client.on('ready', async () => {
   console.log('Starting Bot...\nNode version: ' + process.version + '\nDiscord.js version: ' + Discord.version + '\n')
   console.log("This Bot is online! Running on version " + VERSION)
   client.user.setPresence({
@@ -40,6 +40,14 @@ client.on('ready', () => {
       console.error(e)
     })
   console.log(`Ready to serve on ${client.guilds.size} servers for a total of ${client.users.size} users.`)
+
+  // This is only for development purposes, you can write everything you want here
+  if(EXPERIMENTAL === "1"){
+    // console.log("\nOnline on these servers:")
+    // client.guilds.map(g => {
+    //   console.log(g.name);
+    // })
+  }
 })
 
 client.on('disconnect', () => console.log("I disconnected currently but I will try to reconnect!"))
@@ -71,7 +79,43 @@ client.on('guildDelete', guild => {
 })
 
 client.on('message', async msg => {
-  if (msg.author.bot) return undefined
+  if(msg.isMentioned(client.user)){
+    msg.delete().catch(e => {
+      // console.error(e)
+      msg.channel.send("❌ Message to the owner of the server: **Please give the right permissions to me so I can delete this message.**")
+    })
+    msg.author.send({
+      embed : {
+        color: 3447003,
+        title: 'I Love Radio -> Commands',
+        fields: [
+          {
+            name: PREFIX + 'radio',
+            value: 'If you are in a channel, I will join to your channel and start playing the web radio'
+          },
+          {
+            name: PREFIX + 'stop or ' + PREFIX + 'leave',
+            value: 'Stops playing the music (if you are in a voice channel) and I will leave the channel'
+          },
+          {
+            name: PREFIX + 'invite',
+            value: 'The bot will send an invite link to you so you can invite the bot to your server'
+          },
+          {
+            name: PREFIX + 'botinfo',
+            value: 'Sends information about the bot'
+          },
+          {
+            name: PREFIX + 'list or ' + PREFIX + 'radiolist',
+            value: 'Sends a list with all radios available'
+          }
+        ],
+        timestamp: new Date()
+      }
+    })
+  }
+
+  if (msg.author.bot) return
   if (!msg.content.startsWith(PREFIX)) return undefined
 
   const args = msg.content.split(" ")
