@@ -12,6 +12,8 @@ try {
 }
 const client = new Discord.Client({disableEveryone: true})
 
+const radio = require("./modules/radio")
+
 // Create a config file like the example-config.json
 // Put EXPERIMENTAL to 1 if you are developing!
 var {TOKEN, PREFIX, VERSION, EXPERIMENTAL} = require('./config.json')
@@ -129,278 +131,27 @@ client.on('message', async msg => {
 
     // If no other argument was given, then the bot will play the main radio
     if(args[1] === undefined) {
-
-      // Voice channel
-      const voiceChannel = msg.member.voiceChannel
-
-      // If the user is in a channel
-      if (voiceChannel) {
-        // Then try to join his channel
-        voiceChannel.join().then(connection => {
-
-          // User limit property from the voice channel
-          let userLimit
-          if (voiceChannel.userLimit === 0) {
-            userLimit = "unlimited"
-          } else {
-            userLimit = voiceChannel.userLimit
-          }
-
-          // logging channel data
-          console.log(`\nJoined a channel and now playing iLoveRadio! Here is some data:\n 
-          Radio type: main\n
-          Channel name: ${voiceChannel.name}\n 
-          userLimit: ${userLimit}\n 
-          guild: ${voiceChannel.guild.name}\n 
-          guildId: ${voiceChannel.guild.id}\n
-          membercount (guild): ${voiceChannel.guild.memberCount}\n
-          current amount of people in the same channel: ${voiceChannel.members.size - 1}`)
-
-          // Sending a response that the bot is now playing the music
-          msg.channel.send("🎵 Now playing **I LOVE RADIO**! If I´m not playing music, just type the command ``" + PREFIX + "radio`` again. :wink:")
-
-          // This message will be send if the bot is currently under an experimental mode or under maintenance
-          if(EXPERIMENTAL === "1"){
-            msg.channel.send("**This bot is currently on the EXPERIMENTAL MODE which means that it could happen the bot stops playing music.** \n" +
-              "You can see if the bot is in this mode when it is in the idle (orange dot at the profile pic) mode. \n" +
-              "When the bot is on 'online' (this green dot at the profile pic), it means the bot can be used without any upcoming issues.")
-          }
-
-          // Playing the music!!!
-          const dispatcher = msg.guild.voiceConnection.playStream("http://stream01.iloveradio.de/iloveradio1.mp3")
-
-          // Or catch any error
-        }).catch(e => {
-          // Error message
-          msg.channel.send("❌ I can´t join to your channel because I don´t have the permissions to do that.")
-          // console.log(e)
-        })
-
-      } else {
-        // User must join a channel first before the bot can do something
-        msg.reply('you need to join a voice channel first!')
-      }
+      radio.playRadio(msg.member.voiceChannel, msg, "I LOVE RADIO", "http://stream01.iloveradio.de/iloveradio1.mp3")
     }
 
     // I LOVE THE BATTLE - Web radio
     if(args[1] === "1"){
-      // Voice channel
-      const voiceChannel = msg.member.voiceChannel
-
-      // If the user is in a channel
-      if (voiceChannel) {
-        // Then try to join his channel
-        voiceChannel.join().then(connection => {
-
-          // User limit property from the voice channel
-          let userLimit
-          if (voiceChannel.userLimit === 0) {
-            userLimit = "unlimited"
-          } else {
-            userLimit = voiceChannel.userLimit
-          }
-
-          // logging channel data
-          console.log(`\nJoined a channel and now playing iLoveRadio! Here is some data:\n 
-          Radio type: THE BATTLE\n
-          Channel name: ${voiceChannel.name}\n 
-          userLimit: ${userLimit}\n 
-          guild: ${voiceChannel.guild.name}\n 
-          guildId: ${voiceChannel.guild.id}\n
-          membercount (guild): ${voiceChannel.guild.memberCount}\n
-          current amount of people in the same channel: ${voiceChannel.members.size - 1}`)
-
-          // Sending a response that the bot is now playing the music
-          msg.channel.send("🎵 Now playing **I LOVE THE BATTLE**! If I´m not playing music, just type the command ``" + PREFIX + "radio`` again. :wink:")
-
-          // This message will be send if the bot is currently under an experimental mode or under maintenance
-          if(EXPERIMENTAL === "1"){
-            msg.channel.send("**This bot is currently on the EXPERIMENTAL MODE which means that it could happen the bot stops playing music.** \n" +
-              "You can see if the bot is in this mode when it is in the idle (orange dot at the profile pic) mode. \n" +
-              "When the bot is on 'online' (this green dot at the profile pic), it means the bot can be used without any upcoming issues.")
-          }
-
-          // Playing the music!!!
-          const dispatcher = msg.guild.voiceConnection.playStream("http://stream01.iloveradio.de/iloveradio3.mp3")
-
-          // Or catch any error
-        }).catch(e => {
-          // Error message
-          msg.channel.send("❌ I can´t join to your channel because I don´t have the permissions to do that.")
-          // console.log(e)
-        })
-
-      } else {
-        // User must join a channel first before the bot can do something
-        msg.reply('you need to join a voice channel first!')
-      }
-
+      radio.playRadio(msg.member.voiceChannel, msg, "I LOVE THE BATTLE", "http://stream01.iloveradio.de/iloveradio3.mp3")
     }
 
     // I LOVE #DREIST - Web radio
     if(args[1] === "2"){
-      // Voice channel
-      const voiceChannel = msg.member.voiceChannel
-
-      // If the user is in a channel
-      if (voiceChannel) {
-        // Then try to join his channel
-        voiceChannel.join().then(connection => {
-
-          // User limit property from the voice channel
-          let userLimit
-          if (voiceChannel.userLimit === 0) {
-            userLimit = "unlimited"
-          } else {
-            userLimit = voiceChannel.userLimit
-          }
-
-          // logging channel data
-          console.log(`\nJoined a channel and now playing iLoveRadio! Here is some data:\n 
-          Radio type: #DREIST\n
-          Channel name: ${voiceChannel.name}\n 
-          userLimit: ${userLimit}\n 
-          guild: ${voiceChannel.guild.name}\n 
-          guildId: ${voiceChannel.guild.id}\n
-          membercount (guild): ${voiceChannel.guild.memberCount}\n
-          current amount of people in the same channel: ${voiceChannel.members.size - 1}`)
-
-          // Sending a response that the bot is now playing the music
-          msg.channel.send("🎵 Now playing **I LOVE #DREIST**! If I´m not playing music, just type the command ``" + PREFIX + "radio`` again. :wink:")
-
-          // This message will be send if the bot is currently under an experimental mode or under maintenance
-          if(EXPERIMENTAL === "1"){
-            msg.channel.send("**This bot is currently on the EXPERIMENTAL MODE which means that it could happen the bot stops playing music.** \n" +
-              "You can see if the bot is in this mode when it is in the idle (orange dot at the profile pic) mode. \n" +
-              "When the bot is on 'online' (this green dot at the profile pic), it means the bot can be used without any upcoming issues.")
-          }
-
-          // Playing the music!!!
-          const dispatcher = msg.guild.voiceConnection.playStream("http://stream01.iloveradio.de/iloveradio6.mp3")
-
-          // Or catch any error
-        }).catch(e => {
-          // Error message
-          msg.channel.send("❌ I can´t join to your channel because I don´t have the permissions to do that.")
-          // console.log(e)
-        })
-
-      } else {
-        // User must join a channel first before the bot can do something
-        msg.reply('you need to join a voice channel first!')
-      }
-
+      radio.playRadio(msg.member.voiceChannel, msg, "I LOVE #DREIST", "http://stream01.iloveradio.de/iloveradio6.mp3")
     }
 
-    // I LOVE #DREIST - Web radio
+    // I LOVE TOP 100 CHARTS - Web radio
     if(args[1] === "3"){
-      // Voice channel
-      const voiceChannel = msg.member.voiceChannel
-
-      // If the user is in a channel
-      if (voiceChannel) {
-        // Then try to join his channel
-        voiceChannel.join().then(connection => {
-
-          // User limit property from the voice channel
-          let userLimit
-          if (voiceChannel.userLimit === 0) {
-            userLimit = "unlimited"
-          } else {
-            userLimit = voiceChannel.userLimit
-          }
-
-          // logging channel data
-          console.log(`\nJoined a channel and now playing iLoveRadio! Here is some data:\n 
-          Radio type: TOP 100 Charts\n
-          Channel name: ${voiceChannel.name}\n 
-          userLimit: ${userLimit}\n 
-          guild: ${voiceChannel.guild.name}\n 
-          guildId: ${voiceChannel.guild.id}\n
-          membercount (guild): ${voiceChannel.guild.memberCount}\n
-          current amount of people in the same channel: ${voiceChannel.members.size - 1}`)
-
-          // Sending a response that the bot is now playing the music
-          msg.channel.send("🎵 Now playing **I LOVE TOP 100 CHARTS**! If I´m not playing music, just type the command ``" + PREFIX + "radio`` again. :wink:")
-
-          // This message will be send if the bot is currently under an experimental mode or under maintenance
-          if(EXPERIMENTAL === "1"){
-            msg.channel.send("**This bot is currently on the EXPERIMENTAL MODE which means that it could happen the bot stops playing music.** \n" +
-              "You can see if the bot is in this mode when it is in the idle (orange dot at the profile pic) mode. \n" +
-              "When the bot is on 'online' (this green dot at the profile pic), it means the bot can be used without any upcoming issues.\n\n" +
-              "Check the mode with **" + PREFIX + "botinfo**")
-          }
-
-          // Playing the music!!!
-          const dispatcher = msg.guild.voiceConnection.playStream("http://stream01.iloveradio.de/iloveradio9.mp3")
-
-          // Or catch any error
-        }).catch(e => {
-          // Error message
-          msg.channel.send("❌ I can´t join to your channel because I don´t have the permissions to do that.")
-          // console.log(e)
-        })
-
-      } else {
-        // User must join a channel first before the bot can do something
-        msg.reply('you need to join a voice channel first!')
-      }
-
+      radio.playRadio(msg.member.voiceChannel, msg, "I LOVE TOP 100 CHARTS", "http://stream01.iloveradio.de/iloveradio9.mp3")
     }
 
+    // I LOVE BASS - Web radio
     if(args[1] === "4"){
-      // Voice channel
-      const voiceChannel = msg.member.voiceChannel
-
-      // If the user is in a channel
-      if (voiceChannel) {
-        // Then try to join his channel
-        voiceChannel.join().then(connection => {
-
-          // User limit property from the voice channel
-          let userLimit
-          if (voiceChannel.userLimit === 0) {
-            userLimit = "unlimited"
-          } else {
-            userLimit = voiceChannel.userLimit
-          }
-
-          // logging channel data
-          console.log(`\nJoined a channel and now playing iLoveRadio! Here is some data:\n 
-          Radio type: BASS\n
-          Channel name: ${voiceChannel.name}\n 
-          userLimit: ${userLimit}\n 
-          guild: ${voiceChannel.guild.name}\n 
-          guildId: ${voiceChannel.guild.id}\n
-          membercount (guild): ${voiceChannel.guild.memberCount}\n
-          current amount of people in the same channel: ${voiceChannel.members.size - 1}`)
-
-          // Sending a response that the bot is now playing the music
-          msg.channel.send("🎵 Now playing **I LOVE BASS**! If I´m not playing music, just type the command ``" + PREFIX + "radio`` again. :wink:")
-
-          // This message will be send if the bot is currently under an experimental mode or under maintenance
-          if(EXPERIMENTAL === "1"){
-            msg.channel.send("**This bot is currently on the EXPERIMENTAL MODE which means that it could happen the bot stops playing music.** \n" +
-              "You can see if the bot is in this mode when it is in the idle (orange dot at the profile pic) mode. \n" +
-              "When the bot is on 'online' (this green dot at the profile pic), it means the bot can be used without any upcoming issues.\n\n" +
-              "Check the mode with **" + PREFIX + "botinfo**")
-          }
-
-          // Playing the music!!!
-          const dispatcher = msg.guild.voiceConnection.playStream("http://stream01.iloveradio.de/iloveradio4.mp3")
-
-          // Or catch any error
-        }).catch(e => {
-          // Error message
-          msg.channel.send("❌ I can´t join to your channel because I don´t have the permissions to do that.")
-          // console.log(e)
-        })
-
-      } else {
-        // User must join a channel first before the bot can do something
-        msg.reply('you need to join a voice channel first!')
-      }
-
+      radio.playRadio(msg.member.voiceChannel, msg, "I LOVE BASS", "http://stream01.iloveradio.de/iloveradio4.mp3")
     }
 
   }
