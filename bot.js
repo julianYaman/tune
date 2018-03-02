@@ -224,10 +224,24 @@ client.on('message', async msg => {
   }
 
   if(command === "invite"){
-    msg.delete().catch(e => {
-      // console.error(e)
-      msg.channel.send("❌ Message to the owner of the server: **Please give the right permissions to me so I can delete this message.**")
-    })
+   msg.delete()
+     .then(msg => console.log(`Successfully deleted the message ${msg.content} from ${msg.author} on ${msg.guild.name}.`))
+     .catch(e => {
+       console.error(e)
+       if(e.name === "DiscordAPIError"){
+         // Check if the error message is that the message is not unknown.
+         // If it is, it will not send anything because this would confuse some people. This error (Unknown message)
+         // appears only, when another bot deleted the message already before this bot here (this could happen if
+         // both bots are using the same command and prefix).
+         if(e.message !== "Unknown Message")
+           // Sending the message to the channel with the error message
+           msg.channel.send(`❌ **Cannot delete the message.** (Error: ${e.message})`)
+       }else{
+         // Sending a full error message if it´s not a DiscordAPIError
+         msg.channel.send(`❌ **Cannot delete the message.** (Error: ${e})`)
+       }
+      })
+    console.log(msg.content);
     msg.author.send("Add the bot with the following link to your server: https://discordapp.com/oauth2/authorize?client_id=398195643371356170&scope=bot&permissions=36711488")
   }
 
