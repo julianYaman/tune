@@ -99,7 +99,9 @@ exports.playRadio = (voiceChannel, msg, radioType, streamLink) => {
 
     } else {
       // User must join a channel first before the bot can do something
-      msg.reply('you need to join a voice channel first!')
+      msg.reply('you need to join a voice channel first!').catch(e => {
+        console.log(`${msg.guild.name} -> Error appeared: ${e}`)
+      })
     }
 
   }
