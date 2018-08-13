@@ -482,12 +482,12 @@ detect-libc@^1.0.2:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/detect-libc/-/detect-libc-1.0.3.tgz#fa137c4bd698edf55cd5cd02ac559f91a4c4ba9b"
 
-discord.js@^11.3.2:
-  version "11.3.2"
-  resolved "https://registry.yarnpkg.com/discord.js/-/discord.js-11.3.2.tgz#3c4074c1cb1a4916582fb96ded5ffa1324411f95"
+discord.js@^11.4.1:
+  version "11.4.1"
+  resolved "https://registry.yarnpkg.com/discord.js/-/discord.js-11.4.1.tgz#b5c496ed3d6ed608607b1b83e9a682cbc219bbc1"
   dependencies:
     long "^4.0.0"
-    prism-media "^0.0.2"
+    prism-media "^0.0.3"
     snekfetch "^3.6.4"
     tweetnacl "^1.0.0"
     ws "^4.0.0"
@@ -1437,9 +1437,9 @@ prepend-http@^1.0.1:
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/prepend-http/-/prepend-http-1.0.4.tgz#d4f4562b0ce3696e41ac52d0e002e57a635dc6dc"
 
-prism-media@^0.0.2:
-  version "0.0.2"
-  resolved "https://registry.yarnpkg.com/prism-media/-/prism-media-0.0.2.tgz#aa917b084576c4df6488e4ea8e7d6d44aed4b411"
+prism-media@^0.0.3:
+  version "0.0.3"
+  resolved "https://registry.yarnpkg.com/prism-media/-/prism-media-0.0.3.tgz#8842d4fae804f099d3b48a9a38e3c2bab6f4855b"
 
 process-nextick-args@~1.0.6:
   version "1.0.7"
