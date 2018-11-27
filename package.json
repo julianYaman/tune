@@ -28,6 +28,6 @@
     "ffmpeg-binaries": "^4.0.0",
     "nodemon": "^1.18.6",
     "opusscript": "0.0.6",
-    "tough-cookie": "^2.4.3"
+    "tough-cookie": "^2.5.0"
   }
 }
