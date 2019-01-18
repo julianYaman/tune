@@ -12,7 +12,7 @@ try {
 }
 const client = new Discord.Client({disableEveryone: true})
 
-const radio = require("./modules/radio")
+const radio = require('./modules/radio')
 
 // Create a config file like the example-config.json
 // Put EXPERIMENTAL to 1 if you are developing!
@@ -20,10 +20,10 @@ var {TOKEN, PREFIX, VERSION, EXPERIMENTAL} = require('./config.json')
 
 let clientStatus
 
-if(EXPERIMENTAL === "1") {
-  clientStatus = "idle"
-}else{
-  clientStatus = "online"
+if (EXPERIMENTAL === '1') {
+  clientStatus = 'idle'
+} else {
+  clientStatus = 'online'
 }
 
 client.on('warn', console.warn)
@@ -32,19 +32,19 @@ client.on('error', console.error)
 
 client.on('ready', async () => {
   console.log('Starting Bot...\nNode version: ' + process.version + '\nDiscord.js version: ' + Discord.version + '\n')
-  console.log("This Bot is online! Running on version " + VERSION)
+  console.log('This Bot is online! Running on version ' + VERSION)
   client.user.setPresence({
     status: clientStatus,
     game: {
       name: `on ${client.guilds.size} servers! ${PREFIX}help`
     }
-    }).catch(e => {
-      console.error(e)
-    })
+  }).catch(e => {
+    console.error(e)
+  })
   console.log(`Ready to serve on ${client.guilds.size} servers for a total of ${client.users.size} users.`)
 
   // This is only for development purposes, you can write everything you want here
-  if(EXPERIMENTAL === "1"){
+  if (EXPERIMENTAL === '1') {
     // console.log("\nOnline on these servers:")
     // client.guilds.map(g => {
     //   console.log(g.name);
@@ -52,9 +52,9 @@ client.on('ready', async () => {
   }
 })
 
-client.on('disconnect', () => console.log("I disconnected currently but I will try to reconnect!"))
+client.on('disconnect', () => console.log('I disconnected currently but I will try to reconnect!'))
 
-client.on('reconnecting', () => console.log("Reconnecting..."))
+client.on('reconnecting', () => console.log('Reconnecting...'))
 
 // This event triggers only when the bot joins a guild.
 client.on('guildCreate', guild => {
@@ -81,13 +81,13 @@ client.on('guildDelete', guild => {
 })
 
 client.on('message', async msg => {
-  if(msg.isMentioned(client.user)){
+  if (msg.isMentioned(client.user)) {
     msg.delete().catch(e => {
       // console.error(e)
-      msg.channel.send("❌ Message to the owner of the server: **Please give the right permissions to me so I can delete this message.**")
+      msg.channel.send('❌ Message to the owner of the server: **Please give the right permissions to me so I can delete this message.**')
     })
     msg.author.send({
-      embed : {
+      embed: {
         color: 3447003,
         title: 'I Love Radio -> Commands',
         fields: [
@@ -120,49 +120,47 @@ client.on('message', async msg => {
   if (msg.author.bot) return
   if (!msg.content.startsWith(PREFIX)) return undefined
 
-  const args = msg.content.split(" ")
+  const args = msg.content.split(' ')
 
-  let command = msg.content.toLowerCase().split(" ")[0]
+  let command = msg.content.toLowerCase().split(' ')[0]
   command = command.slice(PREFIX.length)
 
-  if(command === "radio"){
-
+  if (command === 'radio') {
     console.log(args)
 
     // If no other argument was given, then the bot will play the main radio
-    if(args[1] === undefined) {
-      radio.playRadio(msg.member.voiceChannel, msg, "I LOVE RADIO", "http://stream01.iloveradio.de/iloveradio1.mp3")
+    if (args[1] === undefined) {
+      radio.playRadio(msg.member.voiceChannel, msg, 'I LOVE RADIO', 'http://stream01.iloveradio.de/iloveradio1.mp3')
     }
 
     // I LOVE THE BATTLE - Web radio
-    if(args[1] === "1"){
-      radio.playRadio(msg.member.voiceChannel, msg, "I LOVE THE BATTLE", "http://stream01.iloveradio.de/iloveradio3.mp3")
+    if (args[1] === '1') {
+      radio.playRadio(msg.member.voiceChannel, msg, 'I LOVE THE BATTLE', 'http://stream01.iloveradio.de/iloveradio3.mp3')
     }
 
     // I LOVE #DREIST - Web radio
-    if(args[1] === "2"){
-      radio.playRadio(msg.member.voiceChannel, msg, "I LOVE #DREIST", "http://stream01.iloveradio.de/iloveradio6.mp3")
+    if (args[1] === '2') {
+      radio.playRadio(msg.member.voiceChannel, msg, 'I LOVE #DREIST', 'http://stream01.iloveradio.de/iloveradio6.mp3')
     }
 
     // I LOVE TOP 100 CHARTS - Web radio
-    if(args[1] === "3"){
-      radio.playRadio(msg.member.voiceChannel, msg, "I LOVE TOP 100 CHARTS", "http://stream01.iloveradio.de/iloveradio9.mp3")
+    if (args[1] === '3') {
+      radio.playRadio(msg.member.voiceChannel, msg, 'I LOVE TOP 100 CHARTS', 'http://stream01.iloveradio.de/iloveradio9.mp3')
     }
 
     // I LOVE BASS - Web radio
-    if(args[1] === "4"){
-      radio.playRadio(msg.member.voiceChannel, msg, "I LOVE BASS", "http://stream01.iloveradio.de/iloveradio4.mp3")
+    if (args[1] === '4') {
+      radio.playRadio(msg.member.voiceChannel, msg, 'I LOVE BASS', 'http://stream01.iloveradio.de/iloveradio4.mp3')
     }
-
   }
 
-  if(command === "help"){
+  if (command === 'help') {
     msg.delete().catch(e => {
       // console.error(e)
-      msg.channel.send("❌ Message to the owner of the server: **Please give the right permissions to me so I can delete this message.**")
+      msg.channel.send('❌ Message to the owner of the server: **Please give the right permissions to me so I can delete this message.**')
     })
     msg.author.send({
-      embed : {
+      embed: {
         color: 3447003,
         title: 'I Love Radio -> Commands',
         fields: [
@@ -192,62 +190,61 @@ client.on('message', async msg => {
     })
   }
 
-  if(command === "botinfo"){
-
+  if (command === 'botinfo') {
     let mode
 
-    if(EXPERIMENTAL === "1"){
-      mode = "**EXPERIMENTAL (issues can appear)**"
-    }else{
-      mode = "normal"
+    if (EXPERIMENTAL === '1') {
+      mode = '**EXPERIMENTAL (issues can appear)**'
+    } else {
+      mode = 'normal'
     }
 
-    msg.channel.send({ embed : {
-      title: "Bot information",
+    msg.channel.send({ embed: {
+      title: 'Bot information',
       fields: [
         {
-          name: "Servers",
+          name: 'Servers',
           value: `${client.guilds.size}`
         },
         {
-          name: "Serving for",
+          name: 'Serving for',
           value: `${client.users.size} users in total`
         },
         {
-          name: "Mode",
+          name: 'Mode',
           value: mode
         }
       ],
-      description: "Information about the bot",
-      color: "3447003"
+      description: 'Information about the bot',
+      color: '3447003'
     }})
   }
 
-  if(command === "invite"){
-   msg.delete()
+  if (command === 'invite') {
+    msg.delete()
      .then(msg => console.log(`Successfully deleted the message ${msg.content} from ${msg.author} on ${msg.guild.name}.`))
      .catch(e => {
        console.error(e)
-       if(e.name === "DiscordAPIError"){
+       if (e.name === 'DiscordAPIError') {
          // Check if the error message is that the message is not unknown.
          // If it is, it will not send anything because this would confuse some people. This error (Unknown message)
          // appears only, when another bot deleted the message already before this bot here (this could happen if
          // both bots are using the same command and prefix).
-         if(e.message !== "Unknown Message")
+         if (e.message !== 'Unknown Message')
            // Sending the message to the channel with the error message
-           msg.channel.send(`❌ **Cannot delete the message.** (Error: ${e.message})`)
-       }else{
+           { msg.channel.send(`❌ **Cannot delete the message.** (Error: ${e.message})`) }
+       } else {
          // Sending a full error message if it´s not a DiscordAPIError
          msg.channel.send(`❌ **Cannot delete the message.** (Error: ${e})`)
        }
-      })
-    console.log(msg.content);
-    msg.author.send("Add the bot with the following link to your server: https://discordapp.com/oauth2/authorize?client_id=398195643371356170&scope=bot&permissions=36711488")
+     })
+    console.log(msg.content)
+    msg.author.send('Add the bot with the following link to your server: https://discordapp.com/oauth2/authorize?client_id=398195643371356170&scope=bot&permissions=36711488')
   }
 
-  if(command === "list" || command === "radiolist"){
+  if (command === 'list' || command === 'radiolist') {
     msg.channel.send({
-      embed : {
+      embed: {
         color: 3447003,
         title: 'I Love Radio -> Radio list ',
         fields: [
@@ -277,19 +274,18 @@ client.on('message', async msg => {
     })
   }
 
-  if(command === "leave" || command === "stop" ){
+  if (command === 'leave' || command === 'stop') {
     const voiceChannel = msg.member.voiceChannel
-    if(voiceChannel && voiceChannel.id === msg.guild.voiceConnection.channel.id) {
-      console.log("Leaving a channel and stopped playing iLoveRadio")
-      msg.channel.send("I´m leaving the channel now!")
+    if (voiceChannel && voiceChannel.id === msg.guild.voiceConnection.channel.id) {
+      console.log('Leaving a channel and stopped playing iLoveRadio')
+      msg.channel.send('I´m leaving the channel now!')
       voiceChannel.leave()
-    }else{
+    } else {
       msg.reply('no')
     }
   }
 })
 
-
 client.login(TOKEN).catch(e => console.log(e))
 
-process.on("unhandledRejection", (PromiseRejection) => console.error(`Promise Error -> ${PromiseRejection}`))
+process.on('unhandledRejection', (PromiseRejection) => console.error(`Promise Error -> ${PromiseRejection}`))
