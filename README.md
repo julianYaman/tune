@@ -3,7 +3,7 @@
 <p align="center">
     <a href="https://standardjs.com"><img src="https://img.shields.io/badge/code_style-standard-brightgreen.svg" alt="Standard - JavaScript Style Guide"></a>
     <a href="https://discordapp.com/oauth2/authorize?client_id=398195643371356170&scope=bot&permissions=36711488"><img src="https://img.shields.io/badge/Discord-Add%20Bot-7289DA.svg" /></a>
-    <a href="https://discord.gg/k6qSHQs"><img src="https://img.shields.io/badge/Discord-Join%20Server-7289DA.svg" /></a>
+    <a href="https://discord.me/yaman"><img src="https://img.shields.io/badge/Discord-Join%20Server-7289DA.svg" /></a>
     <img src="https://img.shields.io/badge/master--version-1.4.0-brightgreen.svg" />
     <a href="https://github.com/julianYaman/iloveradio-discord-bot/releases"><img src="https://img.shields.io/github/release/julianYaman/iloveradio-discord-bot.svg" /></a>
 </p>
