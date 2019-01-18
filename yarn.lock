@@ -501,9 +501,9 @@ detect-libc@^1.0.2:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/detect-libc/-/detect-libc-1.0.3.tgz#fa137c4bd698edf55cd5cd02ac559f91a4c4ba9b"
 
-discord.js@^11.4.1:
-  version "11.4.1"
-  resolved "https://registry.yarnpkg.com/discord.js/-/discord.js-11.4.1.tgz#b5c496ed3d6ed608607b1b83e9a682cbc219bbc1"
+discord.js@^11.4.2:
+  version "11.4.2"
+  resolved "https://registry.yarnpkg.com/discord.js/-/discord.js-11.4.2.tgz#54586981926521572051f2a30b984aad2b49786e"
   dependencies:
     long "^4.0.0"
     prism-media "^0.0.3"

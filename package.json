@@ -23,8 +23,8 @@
   },
   "homepage": "https://github.com/julianYaman/iloveradio-discord-bot#readme",
   "dependencies": {
+    "discord.js": "^11.4.2",
     "debug": "^4.1.1",
-    "discord.js": "^11.4.1",
     "ffmpeg-binaries": "^4.0.0",
     "nodemon": "^1.18.9",
     "opusscript": "0.0.6",
