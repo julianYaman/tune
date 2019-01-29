@@ -150,7 +150,7 @@ client.on('message', async msg => {
 
     // I LOVE BASS - Web radio
     if (args[1] === '4') {
-      radio.playRadio(msg.member.voiceChannel, msg, 'I LOVE BASS', 'http://stream01.iloveradio.de/iloveradio4.mp3')
+      radio.playRadio(msg.member.voiceChannel, msg, 'I LOVE THE DJ BY DJ MAG', 'http://stream01.iloveradio.de/iloveradio4.mp3')
     }
   }
 
@@ -266,7 +266,7 @@ client.on('message', async msg => {
           },
           {
             name: PREFIX + 'radio 4',
-            value: 'Radio: **I LOVE RADIO BASS**'
+            value: 'Radio: **I LOVE RADIO THE DJ BY DJ MAG**'
           }
         ],
         timestamp: new Date()
