@@ -277,8 +277,8 @@ client.on('message', async msg => {
   if (command === 'leave' || command === 'stop') {
     const voiceChannel = msg.member.voiceChannel
     if (voiceChannel && voiceChannel.id === msg.guild.voiceConnection.channel.id) {
-      console.log('Leaving a channel and stopped playing iLoveRadio')
-      msg.channel.send('I´m leaving the channel now!')
+      // console.log('Leaving a channel and stopped playing iLoveRadio')
+      msg.channel.send('I left the channel!')
       voiceChannel.leave()
     } else {
       msg.reply('no')
