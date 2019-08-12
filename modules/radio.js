@@ -51,6 +51,12 @@ exports.playRadio = (voiceChannel, msg, radioType, streamLink) => {
 
     // Playing the music!!!
     const dispatcher = msg.guild.voiceConnection.playStream(`${streamLink}`)
+      .on("start", st => {console.log(st)})
+      .on("debug", d => {console.log(d)})
+      .on("error", e => {console.log(e)})
+      .on("speaking", sp => {console.log(sp)})
+      .on('end', reason => {console.log(reason)})
+    console.log(dispatcher.player.currentStream)
 
   }else {
 
@@ -89,12 +95,19 @@ exports.playRadio = (voiceChannel, msg, radioType, streamLink) => {
 
         // Playing the music!!!
         const dispatcher = msg.guild.voiceConnection.playStream(`${streamLink}`)
+          .on("start", st => {console.log("start:"); console.log(st)})
+          .on("debug", d => {console.log("debug:"); console.log(d)})
+          .on("error", e => {console.log("error:"); console.log(e);})
+          .on("speaking", sp => {console.log("speaking:"); console.log(sp);})
+          .on('end', reason => {console.log("end:"); console.log(reason)})
+        console.log(dispatcher.player.currentStream)
+        // dispatcher.resume()
 
         // Or catch any error
       }).catch(e => {
         // Error message
         msg.channel.send(`❌ I can´t join to your channel. (${e})`)
-        console.log(e)
+        console.error(e)
       })
 
     } else {

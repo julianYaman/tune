@@ -1,36 +1,26 @@
 {
-  "name": "iloveradio-discord-bot",
-  "version": "1.3.1",
-  "description": "A bot where you can here the web radio iLoveRadio",
+  "name": "tune-discord-bot",
+  "version": "1.0.0",
+  "description": "A brand-new Discord bot for listening live radio music.",
   "main": "bot.js",
+  "dependencies": {
+    "discord.js": "^11.5.1",
+    "ffmpeg-binaries": "^4.0.0",
+    "readme-md-generator": "^0.6.1",
+    "nodemon": "^1.18.10"
+  },
+  "devDependencies": {},
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node bot.js",
-    "dev": "nodemon bot.js"
+    "test": "npm run dev"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/julianYaman/iloveradio-discord-bot.git"
+    "url": "git+https://github.com/julianYaman/tune.git"
   },
-  "keywords": [
-    "discord",
-    "bot",
-    "iloveradio"
-  ],
-  "author": "Julian Yaman <julianyaman@posteo.de>",
+  "author": "Julian Yaman <julianyaman@posteo.eu>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/julianYaman/iloveradio-discord-bot/issues"
+    "url": "https://github.com/julianYaman/tune/issues"
   },
-  "homepage": "https://github.com/julianYaman/iloveradio-discord-bot#readme",
-  "dependencies": {
-    "discord.js": "^11.4.2",
-    "debug": "^4.1.1",
-    "ffmpeg-binaries": "^4.0.0",
-    "opusscript": "0.0.6",
-    "tough-cookie": "^3.0.1"
-  },
-  "dev-dependencies": {
-    "nodemon": "^1.18.9"
-  }
+  "homepage": "https://github.com/julianYaman/tune#readme"
 }

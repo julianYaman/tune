@@ -122,8 +122,8 @@ client.on('message', async msg => {
 
   const args = msg.content.split(' ')
 
-  let command = msg.content.toLowerCase().split(' ')[0]
-  command = command.slice(PREFIX.length)
+  let command = args[0]
+  command = command.slice(0)
 
   if (command === 'radio') {
     console.log(args)
@@ -151,6 +151,10 @@ client.on('message', async msg => {
     // I LOVE BASS - Web radio
     if (args[1] === '4') {
       radio.playRadio(msg.member.voiceChannel, msg, 'I LOVE THE DJ BY DJ MAG', 'http://stream01.iloveradio.de/iloveradio4.mp3')
+    }
+
+    if (args[1] === 'test') {
+      radio.playRadio(msg.member.voiceChannel, msg, 'Test Radio', 'http://stream-dc1.radioparadise.com/aac-320')
     }
   }
 
