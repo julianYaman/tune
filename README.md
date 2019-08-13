@@ -28,16 +28,13 @@ npm install
 npm run dev
 ```
 
-## Author
-
-👤 **Julian Yaman <julianyaman@posteo.eu>**
-
-* Twitter: [@julianYaman](https://twitter.com/julianYaman)
-* Github: [@julianYaman](https://github.com/julianYaman)
-
 ## 🤝 Contributing
 
-Contributions, issues and feature requests are welcome!<br />Feel free to check [issues page](https://github.com/julianYaman/tune/issues).
+Contributions, issues and feature requests are welcome!<br />Feel free to check [issues page](https://github.com/julianYaman/tune/issues) 
+and join the [Support Discord Server](https://discord.gg/yAUmDNb).
+
+**If you want to contribute to the codebase of this project, please follow the 
+[contributing guidelines](https://github.com/julianYaman/tune/blob/master/docs/CONTRIBUTING.md).**
 
 ## Show your support
 
@@ -46,6 +43,15 @@ Give a ⭐️ if you like this project!
 <a href="https://www.patreon.com/user?u=23070184">
   <img src="https://c5.patreon.com/external/logo/become_a_patron_button@2x.png" width="160">
 </a>
+
+## Author & Contributors
+
+👤 **Julian Yaman <julianyaman@posteo.eu>**
+
+* Twitter: [@julianYaman](https://twitter.com/julianYaman)
+* Support Discord Server: [join here](https://discord.gg/yAUmDNb)
+
+*- contributors will be listed here -*
 
 ## 📝 License
 
