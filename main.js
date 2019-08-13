@@ -31,12 +31,12 @@ client.on('warn', console.warn)
 client.on('error', console.error)
 
 client.on('ready', async () => {
-  console.log('Starting Bot...\nNode version: ' + process.version + '\nDiscord.js version: ' + Discord.version + '\n')
-  console.log('This Bot is online! Running on version ' + VERSION)
+  console.log('#####################\nStarting Bot...\nNode version: ' + process.version + '\nDiscord.js version: ' + Discord.version + '\n#####################\n')
+  console.log(client.user.username + ' is online! Running on v' + VERSION)
   client.user.setPresence({
     status: clientStatus,
     game: {
-      name: `on ${client.guilds.size} servers! ${PREFIX}help`
+      name: `radio music on ${client.guilds.size} servers! ${PREFIX}help`
     }
   }).catch(e => {
     console.error(e)
@@ -61,7 +61,7 @@ client.on('guildCreate', guild => {
   console.log(`Joined a new guild -> ${guild.name}. (id: ${guild.id}) This guild has ${guild.memberCount} members!`)
   client.user.setPresence({
     game: {
-      name: `on ${client.guilds.size} servers! ${PREFIX}help`
+      name: `radio music on ${client.guilds.size} servers! ${PREFIX}help`
     }
   }).catch(e => {
     console.error(e)
@@ -73,7 +73,7 @@ client.on('guildDelete', guild => {
   console.log(`I have been removed from -> ${guild.name}. (id: ${guild.id})`)
   client.user.setPresence({
     game: {
-      name: `on ${client.guilds.size} servers! ${PREFIX}help`
+      name: `radio music on ${client.guilds.size} servers! ${PREFIX}help`
     }
   }).catch(e => {
     console.error(e)
