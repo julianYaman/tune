@@ -2,16 +2,17 @@
   "name": "tune-discord-bot",
   "version": "1.0.0",
   "description": "A brand-new Discord bot for listening live radio music.",
-  "main": "bot.js",
+  "main": "main.js",
   "dependencies": {
     "discord.js": "^11.5.1",
     "ffmpeg-binaries": "^4.0.0",
-    "readme-md-generator": "^0.6.1",
-    "nodemon": "^1.18.10"
+    "readme-md-generator": "^0.6.1"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "nodemon": "^1.19.1"
+  },
   "scripts": {
-    "test": "npm run dev"
+    "dev": "nodemon main.js"
   },
   "repository": {
     "type": "git",
