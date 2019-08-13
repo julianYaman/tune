@@ -1,6 +1,9 @@
 <h1 align="center">Welcome to Tune 👋</h1>
 <p>
   <img alt="Version" src="https://img.shields.io/badge/version-v1.0.0-blue.svg?cacheSeconds=2592000" />
+  <a href="https://discord.gg/yAUmDNb">
+      <img src="https://discordapp.com/api/guilds/358751806697897984/embed.png" alt="Discord Server Shield"/>
+  </a>
   <a href="https://github.com/julianYaman/tune/blob/master/LICENSE">
     <img alt="License: MIT" src="https://img.shields.io/badge/License-MIT-yellow.svg" target="_blank" />
   </a>
@@ -19,13 +22,7 @@
 npm install
 ```
 
-## Usage
-
-```sh
-npm run bot
-```
-
-## Run tests
+## Run tests with *nodemon*
 
 ```sh
 npm run dev
@@ -44,7 +41,7 @@ Contributions, issues and feature requests are welcome!<br />Feel free to check 
 
 ## Show your support
 
-Give a ⭐️ if this project helped you!
+Give a ⭐️ if you like this project!
 
 <a href="https://www.patreon.com/user?u=23070184">
   <img src="https://c5.patreon.com/external/logo/become_a_patron_button@2x.png" width="160">
@@ -56,4 +53,4 @@ Copyright © 2019 [Julian Yaman <julianyaman@posteo.eu>](https://github.com/juli
 This project is [MIT](https://github.com/julianYaman/tune/blob/master/LICENSE) licensed.
 
 ***
-_This README was generated with ❤️ by [readme-md-generator](https://github.com/kefranabg/readme-md-generator)_
+_This README was generated with ❤️ by [readme-md-generator](https://github.com/kefranabg/readme-md-generator) with some edits_ 

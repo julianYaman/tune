@@ -12,6 +12,7 @@
     "nodemon": "^1.19.1"
   },
   "scripts": {
+    "bot": "node main.js",
     "dev": "nodemon main.js"
   },
   "repository": {
