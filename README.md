@@ -1,4 +1,4 @@
-<h1 align="center">Welcome to Tune 👋</h1>
+<h1 align="center">📻 Welcome to Tune 🎶</h1>
 <p>
   <img alt="Version" src="https://img.shields.io/badge/version-v1.0.0-blue.svg?cacheSeconds=2592000" />
   <a href="https://discord.gg/yAUmDNb">
@@ -15,6 +15,21 @@
 > A brand-new Discord bot for listening into live radio music from your favorite web radio.
 
 ### 🏠 [Homepage](https://github.com/julianYaman/tune)
+
+## About the bot
+
+*TL;DR - you've never had such a great bot on your server!*
+
+**Tune** is a new upcoming bot which plays live radio music from different web radios of different genres.
+The radios are categorized in different genres like *EDM, Jazz, Classics and many more*. 
+
+In next updates, the list of all supported radios will be extended as far as we can. You can also submit your own radio
+to this bot (in case *you* are the owner or a authorized person to do that) and we will add it to our list ASAP.
+
+We also support self-hosting. This means, that you can clone or download this repository and add your own radios
+to this list in case you want to have more control over the bot.
+
+Disclaimer: We are NOT responsible for any copyright claim or legal issues when you run this bot by your own.
 
 ## Install
 
