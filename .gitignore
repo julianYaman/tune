@@ -2,7 +2,7 @@
 .idea
 
 # Production config file, create your own
-config.json
+config.js
 
 # Node Modules
 node_modules
