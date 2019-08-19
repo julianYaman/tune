@@ -31,18 +31,6 @@ to this list in case you want to have more control over the bot.
 
 Disclaimer: We are NOT responsible for any copyright claim or legal issues when you run this bot by your own.
 
-## Install
-
-```sh
-npm install
-```
-
-## Run tests with *nodemon*
-
-```sh
-npm run dev
-```
-
 ## 🤝 Contributing
 
 Contributions, issues and feature requests are welcome!<br />Feel free to check [issues page](https://github.com/julianYaman/tune/issues) 

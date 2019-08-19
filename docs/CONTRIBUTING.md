@@ -13,7 +13,7 @@ the changes you made. In future, a special code style will be enforced in all Ja
 4. *Optionally, you can create a development branch for your changes.*
 The name should contain the type of change you are doing (e.g. `update-xyz-command`). *You don't have to do this.*
 5. Code what you want. (Read **What you need to consider when you code**)
-6. Try out your changes and new features with `npm run dev`.
+6. Try out your changes and new features with `npm run dev` (nodemon should be installed before using this command).
 7. [Submit a pull request.](https://github.com/julianYaman/tune/pull/new/master)
 
 When you submit a pull request, please follow the template.
