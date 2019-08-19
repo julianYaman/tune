@@ -16,7 +16,7 @@ const radio = require('./modules/radio')
 
 // Create a config file like the example-config.json
 // Put EXPERIMENTAL to 1 if you are developing!
-var {TOKEN, PREFIX, VERSION, EXPERIMENTAL} = require('./config.json')
+var {TOKEN, PREFIX, VERSION, EXPERIMENTAL} = require('./config.js')
 
 let clientStatus
 
@@ -84,32 +84,15 @@ client.on('message', async msg => {
   if (msg.isMentioned(client.user)) {
     msg.delete().catch(e => {
       // console.error(e)
-      msg.channel.send('❌ Message to the owner of the server: **Please give the right permissions to me so I can delete this message.**')
     })
     msg.author.send({
       embed: {
         color: 3447003,
-        title: 'I Love Radio -> Commands',
+        title: client.user.username + ' -> Commands',
         fields: [
           {
-            name: PREFIX + 'radio',
-            value: 'If you are in a channel, I will join to your channel and start playing the web radio'
-          },
-          {
-            name: PREFIX + 'stop or ' + PREFIX + 'leave',
-            value: 'Stops playing the music (if you are in a voice channel) and I will leave the channel'
-          },
-          {
-            name: PREFIX + 'invite',
-            value: 'The bot will send an invite link to you so you can invite the bot to your server'
-          },
-          {
-            name: PREFIX + 'botinfo',
-            value: 'Sends information about the bot'
-          },
-          {
-            name: PREFIX + 'list or ' + PREFIX + 'radiolist',
-            value: 'Sends a list with all radios available'
+            name: 'oops',
+            value: 'nothing here currently'
           }
         ],
         timestamp: new Date()
@@ -129,33 +112,6 @@ client.on('message', async msg => {
     console.log(args)
 
     // If no other argument was given, then the bot will play the main radio
-    if (args[1] === undefined) {
-      radio.playRadio(msg.member.voiceChannel, msg, 'I LOVE RADIO', 'http://stream01.iloveradio.de/iloveradio1.mp3')
-    }
-
-    // I LOVE THE BATTLE - Web radio
-    if (args[1] === '1') {
-      radio.playRadio(msg.member.voiceChannel, msg, 'I LOVE THE BATTLE', 'http://stream01.iloveradio.de/iloveradio3.mp3')
-    }
-
-    // I LOVE #DREIST - Web radio
-    if (args[1] === '2') {
-      radio.playRadio(msg.member.voiceChannel, msg, 'I LOVE #DREIST', 'http://stream01.iloveradio.de/iloveradio6.mp3')
-    }
-
-    // I LOVE TOP 100 CHARTS - Web radio
-    if (args[1] === '3') {
-      radio.playRadio(msg.member.voiceChannel, msg, 'I LOVE TOP 100 CHARTS', 'http://stream01.iloveradio.de/iloveradio9.mp3')
-    }
-
-    // I LOVE BASS - Web radio
-    if (args[1] === '4') {
-      radio.playRadio(msg.member.voiceChannel, msg, 'I LOVE THE DJ BY DJ MAG', 'http://stream01.iloveradio.de/iloveradio4.mp3')
-    }
-
-    if (args[1] === 'test') {
-      radio.playRadio(msg.member.voiceChannel, msg, 'Test Radio', 'http://stream-dc1.radioparadise.com/aac-320')
-    }
   }
 
   if (command === 'help') {

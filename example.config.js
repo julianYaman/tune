@@ -1,4 +1,4 @@
-{
+module.exports = {
   "TOKEN": "<token>",
   "PREFIX": "+",
   "VERSION": "1.4.0",

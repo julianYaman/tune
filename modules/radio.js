@@ -2,7 +2,7 @@
  * @fileOverview File with important functions for the bot
  * */
 
-var {PREFIX, EXPERIMENTAL} = require('./../config.json')
+var {PREFIX, EXPERIMENTAL} = require('./../config.js')
 
 /**
  * Function which connects you to the web radio and plays music
