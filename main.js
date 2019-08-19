@@ -16,14 +16,19 @@ const radio = require('./modules/radio')
 
 // Create a config file like the example-config.json
 // Put EXPERIMENTAL to 1 if you are developing!
-var {TOKEN, PREFIX, VERSION, EXPERIMENTAL} = require('./config.js')
+var {TOKEN, PREFIX, VERSION} = require('./config.js')
 
-let clientStatus
+// File System from node
+const fs = require('fs');
 
-if (EXPERIMENTAL === '1') {
-  clientStatus = 'idle'
-} else {
-  clientStatus = 'online'
+// Creating a collection for the commands
+client.commands = new Discord.Collection();
+const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'))
+for (const file of commandFiles) {
+  const command = require(`./commands/${file}`);
+  // set a new item in the Collection
+  // with the key as the command name and the value as the exported module
+  client.commands.set(command.name, command);
 }
 
 client.on('warn', console.warn)
@@ -34,7 +39,7 @@ client.on('ready', async () => {
   console.log('#####################\nStarting Bot...\nNode version: ' + process.version + '\nDiscord.js version: ' + Discord.version + '\n#####################\n')
   console.log(client.user.username + ' is online! Running on v' + VERSION)
   client.user.setPresence({
-    status: clientStatus,
+    status: 'online',
     game: {
       name: `radio music on ${client.guilds.size} servers! ${PREFIX}help`
     }
@@ -42,14 +47,6 @@ client.on('ready', async () => {
     console.error(e)
   })
   console.log(`Ready to serve on ${client.guilds.size} servers for a total of ${client.users.size} users.`)
-
-  // This is only for development purposes, you can write everything you want here
-  if (EXPERIMENTAL === '1') {
-    // console.log("\nOnline on these servers:")
-    // client.guilds.map(g => {
-    //   console.log(g.name);
-    // })
-  }
 })
 
 client.on('disconnect', () => console.log('I disconnected currently but I will try to reconnect!'))
@@ -151,13 +148,6 @@ client.on('message', async msg => {
   }
 
   if (command === 'botinfo') {
-    let mode
-
-    if (EXPERIMENTAL === '1') {
-      mode = '**EXPERIMENTAL (issues can appear)**'
-    } else {
-      mode = 'normal'
-    }
 
     msg.channel.send({ embed: {
       title: 'Bot information',
@@ -169,10 +159,6 @@ client.on('message', async msg => {
         {
           name: 'Serving for',
           value: `${client.users.size} users in total`
-        },
-        {
-          name: 'Mode',
-          value: mode
         }
       ],
       description: 'Information about the bot',
