@@ -77,159 +77,36 @@ client.on('guildDelete', guild => {
   })
 })
 
-client.on('message', async msg => {
-  if (msg.isMentioned(client.user)) {
-    msg.delete().catch(e => {
+client.on('message', async message => {
+  if (message.isMentioned(client.user)) {
+    message.delete().catch(e => {
+      // TODO: How to handle this properly?
       // console.error(e)
+      // message.channel.send('❌ Message to the owner of the server: **Please give the right permissions to me so I can delete this message.**')
     })
-    msg.author.send({
-      embed: {
-        color: 3447003,
-        title: client.user.username + ' -> Commands',
-        fields: [
-          {
-            name: 'oops',
-            value: 'nothing here currently'
-          }
-        ],
-        timestamp: new Date()
-      }
-    })
+
+    // Send the message of the help command as a response to the user
+    client.commands.get('help').execute(message, null, {PREFIX, VERSION})
   }
 
-  if (msg.author.bot) return
-  if (!msg.content.startsWith(PREFIX)) return undefined
+  if (message.author.bot) return
+  if (!message.content.startsWith(PREFIX)) return undefined
 
-  const args = msg.content.split(' ')
+  let args = message.content.split(' ')
 
-  let command = args[0]
-  command = command.slice(0)
+  let command = message.content.toLowerCase().split(' ')[0]
+  command = command.slice(PREFIX.length)
 
-  if (command === 'radio') {
-    console.log(args)
+  // What should the bot do with an unknown command?
+  if (!client.commands.has(command)) return;
 
-    // If no other argument was given, then the bot will play the main radio
+  try {
+    client.commands.get(command).execute(message, args, {PREFIX, VERSION});
+  } catch (error) {
+    console.error(error);
+    message.reply('there was an error trying to execute that command!');
   }
 
-  if (command === 'help') {
-    msg.delete().catch(e => {
-      // console.error(e)
-      msg.channel.send('❌ Message to the owner of the server: **Please give the right permissions to me so I can delete this message.**')
-    })
-    msg.author.send({
-      embed: {
-        color: 3447003,
-        title: 'I Love Radio -> Commands',
-        fields: [
-          {
-            name: PREFIX + 'radio',
-            value: 'If you are in a channel, I will join to your channel and start playing the web radio'
-          },
-          {
-            name: PREFIX + 'stop or ' + PREFIX + 'leave',
-            value: 'Stops playing the music (if you are in a voice channel) and I will leave the channel'
-          },
-          {
-            name: PREFIX + 'invite',
-            value: 'The bot will send an invite link to you so you can invite the bot to your server'
-          },
-          {
-            name: PREFIX + 'botinfo',
-            value: 'Sends information about the bot'
-          },
-          {
-            name: PREFIX + 'list or ' + PREFIX + 'radiolist',
-            value: 'Sends a list with all radios available'
-          }
-        ],
-        timestamp: new Date()
-      }
-    })
-  }
-
-  if (command === 'botinfo') {
-
-    msg.channel.send({ embed: {
-      title: 'Bot information',
-      fields: [
-        {
-          name: 'Servers',
-          value: `${client.guilds.size}`
-        },
-        {
-          name: 'Serving for',
-          value: `${client.users.size} users in total`
-        }
-      ],
-      description: 'Information about the bot',
-      color: '3447003'
-    }})
-  }
-
-  if (command === 'invite') {
-    msg.delete()
-     .then(msg => console.log(`Successfully deleted the message ${msg.content} from ${msg.author} on ${msg.guild.name}.`))
-     .catch(e => {
-       console.error(e)
-       if (e.name === 'DiscordAPIError') {
-         // Check if the error message is that the message is not unknown.
-         // If it is, it will not send anything because this would confuse some people. This error (Unknown message)
-         // appears only, when another bot deleted the message already before this bot here (this could happen if
-         // both bots are using the same command and prefix).
-         if (e.message !== 'Unknown Message')
-           // Sending the message to the channel with the error message
-           { msg.channel.send(`❌ **Cannot delete the message.** (Error: ${e.message})`) }
-       } else {
-         // Sending a full error message if it´s not a DiscordAPIError
-         msg.channel.send(`❌ **Cannot delete the message.** (Error: ${e})`)
-       }
-     })
-    console.log(msg.content)
-    msg.author.send('Add the bot with the following link to your server: https://discordapp.com/oauth2/authorize?client_id=398195643371356170&scope=bot&permissions=36711488')
-  }
-
-  if (command === 'list' || command === 'radiolist') {
-    msg.channel.send({
-      embed: {
-        color: 3447003,
-        title: 'I Love Radio -> Radio list ',
-        fields: [
-          {
-            name: PREFIX + 'radio',
-            value: 'Radio: **I LOVE RADIO**'
-          },
-          {
-            name: PREFIX + 'radio 1',
-            value: 'Radio: **I LOVE RADIO THE BATTLE**'
-          },
-          {
-            name: PREFIX + 'radio 2',
-            value: 'Radio: **I LOVE RADIO #DREIST**'
-          },
-          {
-            name: PREFIX + 'radio 3',
-            value: 'Radio: **I LOVE RADIO TOP 100 CHARTS**'
-          },
-          {
-            name: PREFIX + 'radio 4',
-            value: 'Radio: **I LOVE RADIO THE DJ BY DJ MAG**'
-          }
-        ],
-        timestamp: new Date()
-      }
-    })
-  }
-
-  if (command === 'leave' || command === 'stop') {
-    const voiceChannel = msg.member.voiceChannel
-    if (voiceChannel && voiceChannel.id === msg.guild.voiceConnection.channel.id) {
-      // console.log('Leaving a channel and stopped playing iLoveRadio')
-      msg.channel.send('I left the channel!')
-      voiceChannel.leave()
-    } else {
-      msg.reply('no')
-    }
-  }
 })
 
 client.login(TOKEN).catch(e => console.log(e))
