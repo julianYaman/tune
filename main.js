@@ -12,14 +12,15 @@ try {
 }
 const client = new Discord.Client({disableEveryone: true})
 
-const radio = require('./modules/radio')
-
 // Create a config file like the example-config.json
 // Put EXPERIMENTAL to 1 if you are developing!
 var {TOKEN, PREFIX, VERSION} = require('./config.js')
 
 // File System from node
 const fs = require('fs');
+
+// lodash
+const _ = require('lodash')
 
 // Creating a collection for the commands
 client.commands = new Discord.Collection();
@@ -94,10 +95,11 @@ client.on('message', async message => {
 
   let args = message.content.split(' ')
 
-  let command = message.content.toLowerCase().split(' ')[0]
-  command = command.slice(PREFIX.length)
+  let command = args[0].toLowerCase().slice(PREFIX.length)
 
-  // What should the bot do with an unknown command?
+  args.shift()
+
+  // TODO: What should the bot do with an unknown command?
   if (!client.commands.has(command)) return;
 
   try {

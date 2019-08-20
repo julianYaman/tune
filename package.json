@@ -6,6 +6,8 @@
   "dependencies": {
     "discord.js": "^11.5.1",
     "ffmpeg-binaries": "^4.0.0",
+    "lodash": "^4.17.15",
+    "node-opus": "^0.3.2",
     "readme-md-generator": "^0.6.1"
   },
   "devDependencies": {
