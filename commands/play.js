@@ -69,7 +69,7 @@ module.exports = {
       if (_.isInteger(selectedRadio) === false) selectedRadio = _.toInteger(selectedRadio)
 
       // Since counting starts with 0 in programming and the list with 1, we need to subtract the integer by 1 unless its 0.
-      selectedRadio = (selectedRadio = 0) ? selectedRadio - 1 : 0
+      selectedRadio = (selectedRadio === 0) ? 0 : selectedRadio - 1
 
       // Play the radio
       radioManager.playRadio(radiolist[genre][selectedRadio], message, message.member.voiceChannel)

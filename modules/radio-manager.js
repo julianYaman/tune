@@ -24,7 +24,7 @@ exports.playRadio = (radio, message, voiceChannel) => {
     message.channel.send(`🎵 Now playing **${radio.name}**!`)
 
     // Playing the music!!!
-    const dispatcher = message.guild.voiceConnection.playStream(`${radio.stream_url}`)
+    const dispatcher = message.guild.voiceConnection.playStream(radio.stream_url)
       .on("start", st => {console.log(st)})
       .on("debug", d => {console.log(d)})
       .on("error", e => {console.log(e)})
@@ -46,7 +46,7 @@ exports.playRadio = (radio, message, voiceChannel) => {
         message.channel.send(`🎵 Now playing **${radio.name}**!`)
 
         // Playing the music!!!
-        const dispatcher = message.guild.voiceConnection.playStream(`${radio.stream_url}`)
+        const dispatcher = message.guild.voiceConnection.playStream(radio.stream_url)
           .on("start", st => {console.log("start:"); console.log(st)})
           .on("debug", d => {console.log("debug:"); console.log(d)})
           .on("error", e => {console.log("error:"); console.log(e);})
