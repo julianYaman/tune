@@ -58,12 +58,12 @@ module.exports = {
       // then the process continues here.
       // radioManager.playRadio(args[0])
     }else{
-      let genre = _.lowerCase(args[0])
+      let genre = args[0].toLowerCase()
       let selectedRadio = args[1]
 
       // If the user did not select a radio, just play the first one
       // TODO: Decide if the first one or a random one should be played...
-      if (selectedRadio === undefined) return radioManager.playRadio(radiolist[genre][0], message, message.member.voiceChannel)
+      if (selectedRadio === undefined || selectedRadio === null) return message.channel.send( {embed: radioManager.getRadiosEmbed(genre, this.name, config.PREFIX, message)})
 
       // If the radio selection is not an integer, then make it to an integer
       if (_.isInteger(selectedRadio) === false) selectedRadio = _.toInteger(selectedRadio)

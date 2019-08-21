@@ -88,10 +88,65 @@ exports.getRadioCategories = () => {
  * Function which returns all radios of a specific category
  *
  * @param {String} category - The category of the radios
+ * @param {String} command - The command name
+ * @param {String} prefix - The prefix of the command
+ * @param {Message} message - Message object of Discord.js
  *
- * @returns - All radios of this specific category
+ * @returns {Object} - All radios of this specific category
  */
-exports.getRadios = (category) => {
+exports.getRadiosEmbed = (category, command, prefix, message) => {
 
+  // The object of the category
+  let radioObject = radioList[category]
+  console.log(category)
+  console.log(radioObject)
+
+  // If this category does not exist:
+  if (radioObject === undefined) return {
+    color: 0xff0000,
+    description: "This category is not included in the bots' radio list!"
+  }
+
+  // If no radios are in this category
+  if (radioObject === null) return {
+    color: 0xff0000,
+    description: "No radios found in this category!"
+  }
+
+  // Each radio in an array
+  let radios = []
+
+  // Pushing every single radio into the radios array
+  for(let key in radioObject){
+    if (radioObject.hasOwnProperty(key)){
+      if(key !== "description"){
+        radios.push(radioObject[key])
+      }
+    }
+  }
+
+  // Array used as the value of the fields key of the embed object
+  let embedFields = []
+
+  // Manipulating the radio object and pushing it into the embedFields array
+  for (let i = 0; i < radios.length; i++){
+
+    radios[i].value = "Play the radio: `" + prefix + command + " " + category + " " + (i + 1) + "`"
+    delete radios[i].stream_url
+
+    embedFields.push(radios[i])
+
+  }
+
+  // Setting up the final embed which will be sent into the channel
+  let embed = {
+    color: 0xf1892d,
+    title: `${category} radios - ${message.client.user.username}`,
+    description: "Description: " + radioObject.description,
+    fields: embedFields
+  }
+
+  // Returning the embed object
+  return embed
 
 }

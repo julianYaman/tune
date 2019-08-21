@@ -1,7 +1,7 @@
 module.exports = {
-  "80s": undefined,
-  "classics": undefined,
-  "electro": undefined,
+  "80s": null,
+  "classics": null,
+  "electro": null,
   "iloveradio": {
     "description" : "Popular German web radio",
     0: {
@@ -19,7 +19,9 @@ module.exports = {
     3: {
       "name": "I LOVE THE DJ BY DJ MAG",
       "stream_url": "http://stream01.ilovemusic.de/iloveradio4.mp3"
-    },
-    "jazz": undefined
-  }
+    }
+  },
+  "jazz": null
 }
+
+// PLEASE DO IT LIKE THIS (when you use categories), otherwise you may encounter some bad user experience.
