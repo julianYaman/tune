@@ -98,8 +98,6 @@ exports.getRadiosEmbed = (category, command, prefix, message) => {
 
   // The object of the category
   let radioObject = radioList[category]
-  console.log(category)
-  console.log(radioObject)
 
   // If this category does not exist:
   if (radioObject === undefined) return {
