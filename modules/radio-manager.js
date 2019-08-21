@@ -2,14 +2,15 @@
  * @fileOverview File with important functions for the bot
  * */
 
-var {PREFIX} = require('./../config.js')
+const {PREFIX} = require('./../config.js')
+const radioList = require('./../radios')
 
 /**
  * Function which connects you to the web radio and plays music
  *
  * @param {Object} radio - Radio which should be played
  * @param {Message} message - Message object of Discord.js
- * @param {VoiceConnection} voiceChannel - The voice connection of the bot to the guild
+ * @param {VoiceChannel} voiceChannel - The voice connection of the bot to the guild
  */
 exports.playRadio = (radio, message, voiceChannel) => {
 
@@ -69,5 +70,28 @@ exports.playRadio = (radio, message, voiceChannel) => {
     }
 
   }
+
+}
+
+/**
+ * Function which returns the genres or categories in which the radios are grouped
+ *
+ * @returns {Array} - All genres or categories (keys of the object) in which the radios are grouped as an array.
+ */
+exports.getRadioCategories = () => {
+
+  return Object.keys(radioList)
+
+}
+
+/**
+ * Function which returns all radios of a specific category
+ *
+ * @param {String} category - The category of the radios
+ *
+ * @returns - All radios of this specific category
+ */
+exports.getRadios = (category) => {
+
 
 }

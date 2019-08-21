@@ -2,7 +2,6 @@ module.exports = {
   "80s": undefined,
   "classics": undefined,
   "electro": undefined,
-  "jazz": undefined,
   "iloveradio": {
     "description" : "Popular German web radio",
     0: {
@@ -20,6 +19,7 @@ module.exports = {
     3: {
       "name": "I LOVE THE DJ BY DJ MAG",
       "stream_url": "http://stream01.ilovemusic.de/iloveradio4.mp3"
-    }
+    },
+    "jazz": undefined
   }
 }

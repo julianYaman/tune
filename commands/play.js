@@ -18,12 +18,44 @@ module.exports = {
     // CURRENT LIST.
     let categorylist = true
 
-    console.log(args)
+    // All Genres or Categories in which the radios are grouped in
+    const genres = radioManager.getRadioCategories()
+
+    // Embed with short explanation how to use this command
+    const howToUseEmbed = {
+      color: 0xf1892d,
+      title: `How to use the ${this.name} command - ${message.client.user.username}`,
+      fields: [
+        {
+          name: `Currently, the bot can play radio of the following genres / categories:`,
+          value: _.join(genres, ", ")
+        },
+        {
+          name: "How to use the command:",
+          value: "You can play a radio by using the command like this: \n`" + config.PREFIX + this.name + " [category] [radio selection (number)]`"
+        }
+      ],
+      footer: "More help: [Tune - Commands](https://www.julianyaman.de/tune)"
+    }
+
+    // Embed with the message that the user needs to be in a channel first before using the command
+    const voiceChannelErrorEmbed = {
+      color: 0xff0000,
+      description: "You must join a voice channel before you can use this command!"
+    }
+
+    // If the user is not connected to a voice channel, then send this embed that he should join one#
+    // in first place to use the command.
+    if(!message.member.voiceChannel) return message.channel.send({embed: voiceChannelErrorEmbed})
 
     // Check if there are any arguments added to the command
-    if (!args[0]) return message.reply("please add more arguments to the command. Example: `" + config.PREFIX + this.name + " electro 1`")
+    if (!args[0]) {
+      return message.channel.send({embed: howToUseEmbed})
+    }
 
     if (!categorylist){
+      // If radios are not categorized (so radios are just simply ordered by no category, just listed in the object)
+      // then the process continues here.
       // radioManager.playRadio(args[0])
     }else{
       let genre = _.lowerCase(args[0])
@@ -33,11 +65,14 @@ module.exports = {
       // TODO: Decide if the first one or a random one should be played...
       if (selectedRadio === undefined) return radioManager.playRadio(radiolist[genre][0], message, message.member.voiceChannel)
 
+      // If the radio selection is not an integer, then make it to an integer
       if (_.isInteger(selectedRadio) === false) selectedRadio = _.toInteger(selectedRadio)
 
+      // Since counting starts with 0 in programming and the list with 1, we need to subtract the integer by 1 unless its 0.
       selectedRadio = (selectedRadio = 0) ? selectedRadio - 1 : 0
 
-      radioManager.playRadio(radiolist[genre][selectedRadio], message, message.voiceConnection)
+      // Play the radio
+      radioManager.playRadio(radiolist[genre][selectedRadio], message, message.member.voiceChannel)
 
     }
 
