@@ -1,7 +1,20 @@
 module.exports = {
   "80s": null,
   "classics": null,
-  "electro": null,
+  "electro": {
+    "description": "Good Description needed...",
+    0 : {
+      "name": "ZoneRadio.de Clubsounds",
+      "stream_url": "https://stream01.zoneradio.de/clubsounds_mq"
+    }
+  },
+  "gaming": {
+    "description" : "Your most famous web radios for gaming",
+    0: {
+      "name": "REYFM.de #gaming",
+      "stream_url": "https://listen.reyfm.de/gaming_192kbps.mp3"
+    }
+  },
   "iloveradio": {
     "description" : "Popular German web radio",
     0: {
