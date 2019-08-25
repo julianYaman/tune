@@ -64,16 +64,17 @@ Also you can support the work financially on [Patreon](https://www.patreon.com/u
 
 ### Setup the project
 
-#### 1. Install [Lavalink](https://github.com/MrJacz/discord.js-lavalink) and [Lavaplayer](https://github.com/sedmelluq/lavaplayer)
+#### 1. Install all modules
 
-Lavalink (discord.js-lavalink):
+```ssh
+npm install
 ```
-npm install discord.js-lavalink
-```
+
+#### 2. Install [Lavaplayer](https://github.com/sedmelluq/lavaplayer)
 
 For downloading [Lavaplayer](https://github.com/sedmelluq/lavaplayer), please go to [the CI server](https://ci.fredboat.com/viewLog.html?buildId=lastSuccessful&buildTypeId=Lavalink_Build&tab=artifacts&guest=1).
 
-#### 2. Setup Lavaplayer
+#### 3. Setup Lavaplayer
 
 For setting Lavaplayer up, you need to create a ``application.yml`` YAML file in your Lavaplayer directory.
 
@@ -85,7 +86,7 @@ java -jar Lavalink.jar
 ```
 when you want to start the bot later.
 
-#### 3. Create a config file
+#### 4. Create a config file
 
 Create a ``config.js`` config file in the working directory of the bot. 
 Here is an [example](https://github.com/julianYaman/tune/blob/master/example.config.js) how it need to look like. 
