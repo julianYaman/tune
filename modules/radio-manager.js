@@ -45,13 +45,14 @@ exports.playRadio = async (radio, message, voiceChannel, client) => {
 		// if (!player) return message.reply('Could not join');
 		
 		// Good ol' debugging
-		console.log(player)
+		// console.log(player)
 		
 		// The song object returned by Lavalink
 		const [song] = await getSong(`${radio.stream_url}`, client)
 		// console.log(song)
 		
 		// Playing the track returned by Lavalink
+		player.updateVoiceState(message.member.voiceChannelID, { selfdeaf: false })
 		player.play(song.track);
 		
 		// Error not good
