@@ -11,7 +11,7 @@ module.exports = {
 	name: 'play',
 	alias: 'radio',
 	description: 'Playing a web radio',
-	execute(message, args, config) {
+	execute(message, args, config, client) {
 
 		// FOR BOT OWNERS WITH OWN LISTS, SET CATEGORYLIST TO FALSE
 		// IF YOU HAVE AN UNCATEGORIZED LIST OF RADIOS NOT LIKE THE
@@ -64,7 +64,7 @@ module.exports = {
 
 			// If the user did not select a radio, just play the first one
 			// TODO: Decide if the first one or a random one should be played...
-			if (selectedRadio === undefined || selectedRadio === null) return message.channel.send({ embed: radioManager.getRadiosEmbed(genre, this.name, config.PREFIX, message) })
+			if (selectedRadio === undefined || selectedRadio === null) return message.channel.send({ embed: radioManager.getRadiosEmbed(genre, this.name, config.PREFIX, message) }, client)
 
 			// If the radio selection is not an integer, then make it to an integer
 			if (_.isInteger(selectedRadio) === false) selectedRadio = _.toInteger(selectedRadio)
@@ -73,7 +73,7 @@ module.exports = {
 			selectedRadio = (selectedRadio === 0) ? 0 : selectedRadio - 1
 
 			// Play the radio
-			radioManager.playRadio(radiolist[genre][selectedRadio], message, message.member.voiceChannel)
+			radioManager.playRadio(radiolist[genre][selectedRadio], message, message.member.voiceChannel, client)
 
 		}
 
