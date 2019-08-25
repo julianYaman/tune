@@ -2,7 +2,7 @@
  * @fileOverview File with important functions for the bot
  * */
 
-const {PREFIX} = require('./../config.js')
+const { PREFIX } = require('./../config.js')
 const radioList = require('./../radios')
 
 /**
@@ -14,62 +14,56 @@ const radioList = require('./../radios')
  */
 exports.playRadio = (radio, message, voiceChannel) => {
 
-  // Check if the bot is already in the channel and if the user is in the same channel.
-  // If the bot and the user are in the same channel, the bot will not "rejoin" but he will
-  // change the radio. If they are both not in the same channel,
-  // the bot will check first if the user is in a channel and then tries to connect to it and tries to play the music-
-  if(message.guild.voiceConnection && message.member.voiceChannel.id === message.guild.voiceConnection.channel.id){
+	// Check if the bot is already in the channel and if the user is in the same channel.
+	// If the bot and the user are in the same channel, the bot will not "rejoin" but he will
+	// change the radio. If they are both not in the same channel,
+	// the bot will check first if the user is in a channel and then tries to connect to it and tries to play the music-
+	if(message.guild.voiceConnection && message.member.voiceChannel.id === message.guild.voiceConnection.channel.id) {
 
-    // Sending a response that the bot is now playing the music
-    message.channel.send(`🎵 Now playing **${radio.name}**!`)
+		message.channel.send(`🎵 Now playing **${radio.name}**!`)
 
-    // Playing the music!!!
-    const dispatcher = message.guild.voiceConnection.playStream(radio.stream_url)
-      .on("start", st => {console.log(st)})
-      .on("debug", d => {console.log(d)})
-      .on("error", e => {console.log(e)})
-      .on("speaking", sp => {console.log(sp)})
-      .on('end', reason => {console.log(reason)})
-    console.log(dispatcher.player.currentStream)
+		// Playing the music!!
+		// eslint-disable-next-line no-unused-vars
+		const dispatcher = message.guild.voiceConnection.playStream(radio.stream_url)
+			.on('error', e => {console.log(e)})
+			.on('end', reason => {console.log(reason)})
 
-  }else {
+	}
+	else {
 
-    // If the user is in a channel
-    if (voiceChannel) {
-      // Then try to join his channel
-      voiceChannel.join().then(connection => {
+		// If the user is in a channel
+		if (voiceChannel) {
+			// Then try to join his channel
+			voiceChannel.join().then(connection => {
 
-        // logging channel data
-        console.log(`Joined Channel and try to play music`)
+				// logging channel data
+				console.log('Joined Channel and try to play music')
 
-        // Sending a response that the bot is now playing the music
-        message.channel.send(`🎵 Now playing **${radio.name}**!`)
+				// Sending a response that the bot is now playing the music
+				message.channel.send(`🎵 Now playing **${radio.name}**!`)
 
-        // Playing the music!!!
-        const dispatcher = message.guild.voiceConnection.playStream(radio.stream_url)
-          .on("start", st => {console.log("start:"); console.log(st)})
-          .on("debug", d => {console.log("debug:"); console.log(d)})
-          .on("error", e => {console.log("error:"); console.log(e);})
-          .on("speaking", sp => {console.log("speaking:"); console.log(sp);})
-          .on('end', reason => {console.log("end:"); console.log(reason)})
-        console.log(dispatcher.player.currentStream)
-        // dispatcher.resume()
+				// Playing the music!!!
+				const dispatcher = message.guild.voiceConnection.playStream(radio.stream_url)
+					.on('error', e => {console.log('error:'); console.log(e);})
+					.on('end', reason => {console.log('end:'); console.log(reason)})
+				// dispatcher.resume()
 
-        // Or catch any error
-      }).catch(e => {
-        // Error message
-        message.channel.send(`❌ I can´t play music. (${e})`)
-        console.error(e)
-      })
+				// Or catch any error
+			}).catch(e => {
+				// Error message
+				message.channel.send(`❌ I can´t play music. (${e})`)
+				console.error(e)
+			})
 
-    } else {
-      // User must join a channel first before the bot can do something
-      message.reply('you need to join a voice channel first!').catch(e => {
-        console.log(`${message.guild.name} -> Error appeared: ${e}`)
-      })
-    }
+		}
+		else {
+			// User must join a channel first before the bot can do something
+			message.reply('you need to join a voice channel first!').catch(e => {
+				console.log(`${message.guild.name} -> Error appeared: ${e}`)
+			})
+		}
 
-  }
+	}
 
 }
 
@@ -80,7 +74,7 @@ exports.playRadio = (radio, message, voiceChannel) => {
  */
 exports.getRadioCategories = () => {
 
-  return Object.keys(radioList)
+	return Object.keys(radioList)
 
 }
 
@@ -96,55 +90,58 @@ exports.getRadioCategories = () => {
  */
 exports.getRadiosEmbed = (category, command, prefix, message) => {
 
-  // The object of the category
-  let radioObject = radioList[category]
+	// The object of the category
+	const radioObject = radioList[category]
 
-  // If this category does not exist:
-  if (radioObject === undefined) return {
-    color: 0xff0000,
-    description: "This category is not included in the bots' radio list!"
-  }
+	// If this category does not exist:
+	if (radioObject === undefined) {
+		return {
+			color: 0xff0000,
+			description: 'This category is not included in the bots\' radio list!',
+		}
+	}
 
-  // If no radios are in this category
-  if (radioObject === null) return {
-    color: 0xff0000,
-    description: "No radios found in this category!"
-  }
+	// If no radios are in this category
+	if (radioObject === null) {
+		return {
+			color: 0xff0000,
+			description: 'No radios found in this category!',
+		}
+	}
 
-  // Each radio in an array
-  let radios = []
+	// Each radio in an array
+	const radios = []
 
-  // Pushing every single radio into the radios array
-  for(let key in radioObject){
-    if (radioObject.hasOwnProperty(key)){
-      if(key !== "description"){
-        radios.push(radioObject[key])
-      }
-    }
-  }
+	// Pushing every single radio into the radios array
+	for(const key in radioObject) {
+		if (radioObject.hasOwnProperty(key)) {
+			if(key !== 'description') {
+				radios.push(radioObject[key])
+			}
+		}
+	}
 
-  // Array used as the value of the fields key of the embed object
-  let embedFields = []
+	// Array used as the value of the fields key of the embed object
+	const embedFields = []
 
-  // Manipulating the radio object and pushing it into the embedFields array
-  for (let i = 0; i < radios.length; i++){
+	// Manipulating the radio object and pushing it into the embedFields array
+	for (let i = 0; i < radios.length; i++) {
 
-    radios[i].value = "Play the radio: `" + prefix + command + " " + category + " " + (i + 1) + "`"
-    delete radios[i].stream_url
+		radios[i].value = 'Play the radio: `' + prefix + command + ' ' + category + ' ' + (i + 1) + '`'
+		delete radios[i].stream_url
+		embedFields.push(radios[i])
 
-    embedFields.push(radios[i])
+	}
 
-  }
+	// Setting up the final embed which will be sent into the channel
+	const embed = {
+		color: 0xf1892d,
+		title: `${category} radios - ${message.client.user.username}`,
+		description: 'Description: ' + radioObject.description,
+		fields: embedFields,
+	}
 
-  // Setting up the final embed which will be sent into the channel
-  let embed = {
-    color: 0xf1892d,
-    title: `${category} radios - ${message.client.user.username}`,
-    description: "Description: " + radioObject.description,
-    fields: embedFields
-  }
-
-  // Returning the embed object
-  return embed
+	// Returning the embed object
+	return embed
 
 }

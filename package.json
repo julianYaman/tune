@@ -11,6 +11,7 @@
     "readme-md-generator": "^0.6.1"
   },
   "devDependencies": {
+    "eslint": "^6.2.2",
     "nodemon": "^1.19.1"
   },
   "scripts": {

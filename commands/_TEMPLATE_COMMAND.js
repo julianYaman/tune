@@ -5,9 +5,10 @@
  * Description: DESCRIPTION
  * */
 module.exports = {
-  name: 'NAME',
-  description: 'DESCRIPTION',
-  execute (message, args, config) {
-    // Your command...
-  }
+	name: 'NAME',
+	description: 'DESCRIPTION',
+	// eslint-disable-next-line no-unused-vars
+	execute(message, args, config) {
+		// Your command...
+	},
 }
