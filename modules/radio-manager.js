@@ -16,11 +16,7 @@ const fetch = require('node-fetch')
  * @param {MusicClient} client - Discord.js Client
  */
 exports.playRadio = async (radio, message, voiceChannel, client) => {
-
-	// Check if the bot is already in the channel and if the user is in the same channel.
-	// If the bot and the user are in the same channel, the bot will not "rejoin" but he will
-	// change the radio. If they are both not in the same channel,
-	// the bot will check first if the user is in a channel and then tries to connect to it and tries to play the music-
+	
 	// Joining the channel of the user
 	const player = await client.player.join({
 		guild: message.guild.id,
@@ -29,7 +25,7 @@ exports.playRadio = async (radio, message, voiceChannel, client) => {
 	}, { selfdeaf: true });
 	
 	// If something went wrong, then return here
-	// if (!player) return message.reply('Could not join');
+	if (!player) return message.reply('Could not join');
 	
 	// Good ol' debugging
 	// console.log(player)
