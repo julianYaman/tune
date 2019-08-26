@@ -2,8 +2,8 @@
  * @fileOverview File with important functions for the bot
  * */
 
-const { NODES } = require('./../config.js')
 const radioList = require('./../radios')
+const logger = require('./logger')
 const { URLSearchParams } = require('url');
 const fetch = require('node-fetch')
 
@@ -38,8 +38,11 @@ exports.playRadio = async (radio, message, voiceChannel, client) => {
 	player.updateVoiceState(message.member.voiceChannelID, { selfdeaf: false })
 	player.play(song.track);
 	
+	// eslint-disable-next-line quotes
+	logger.info(`Successfully playing a web radio on ${message.guild.name} (${message.guild.id}) - Radio: ${radio.name}`)
+	
 	// Error not good
-	player.once('error', console.error);
+	player.once('error', logger.error);
 	// End? uhhh should not happen... lmao
 	player.once('end', async data => {
 		if (data.reason === 'REPLACED') return
