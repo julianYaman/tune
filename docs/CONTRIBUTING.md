@@ -32,7 +32,7 @@ Run it with
 ```
 java -jar Lavalink.jar
 ```
-when you want to start the bot later.
+when you want to start the bot later. (you may need two terminals for testing or use `screen` on Linux for production usage)
 
 6. Create a config file
 
