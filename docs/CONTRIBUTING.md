@@ -9,17 +9,41 @@ the changes you made. In future, a special code style will be enforced in all Ja
 
 1. Fork & `git clone` the repository
 2. Make sure you are on the **master** branch.
-3. Before doing any development, run `npm install`.
-4. *Optionally, you can create a development branch for your changes.*
+
+### Setup the project
+
+3. Install all modules
+
+```ssh
+npm install
+```
+
+4. Install [Lavaplayer](https://github.com/sedmelluq/lavaplayer)
+
+For downloading [Lavaplayer](https://github.com/sedmelluq/lavaplayer), please go to [the CI server](https://ci.fredboat.com/viewLog.html?buildId=lastSuccessful&buildTypeId=Lavalink_Build&tab=artifacts&guest=1).
+
+5. Setup Lavaplayer
+
+For setting Lavaplayer up, you need to create a ``application.yml`` YAML file in your Lavaplayer directory.
+
+Here is an [example how it can look like](https://github.com/Frederikam/Lavalink/blob/master/LavalinkServer/application.yml.example).
+
+Run it with
+```
+java -jar Lavalink.jar
+```
+when you want to start the bot later. (you may need two terminals for testing or use `screen` on Linux for production usage)
+
+6. Create a config file
+
+Create a ``config.js`` config file in the working directory of the bot.
+Here is an [example](https://github.com/julianYaman/tune/blob/master/example.config.js) how it need to look like.
+
+
+7. *Optionally, you can create a development branch for your changes.*
 The name should contain the type of change you are doing (e.g. `update-xyz-command`). *You don't have to do this.*
-5. Code what you want. (Read **What you need to consider when you code**)
-6. Try out your changes and new features with `npm run dev` (nodemon should be installed before using this command).
-7. [Submit a pull request.](https://github.com/julianYaman/tune/pull/new/master)
+8. Code what you want. (Read **What you need to consider when you code**)
+9. Try out your changes and new features with `npm run dev` (nodemon should be installed before using this command).
+10. [Submit a pull request.](https://github.com/julianYaman/tune/pull/new/master)
 
 When you submit a pull request, please follow the template.
-
-## What you need to consider when you code:
-
-In the root directory, you need to create a file called `config.js`, otherwise the bot won't start.
-
-The template for this file can be found in `example.config.js`.

@@ -1,30 +1,49 @@
-// Load up the discord.js library. Else throw an error.
-try {
-	var Discord = require('discord.js')
-	if (process.version.slice(1).split('.')[0] < 8) {
-		throw new Error('Node 8.0.0 or higher is required. Please upgrade / update Node.js on your computer / server.')
-	}
-}
-catch (e) {
-	console.error(e.stack)
-	console.error('Current Node.js version: ' + process.version)
-	console.error('In case you´ve not installed any required module: \nPlease run \'npm install\' and ensure it passes with no errors!')
-	process.exit()
-}
-const client = new Discord.Client({ disableEveryone: true })
+// // Load up the discord.js library. Else throw an error.
+// try {
+// 	// eslint-disable-next-line no-var
+// 	var Discord = require('discord.js')
+// 	if (process.version.slice(1).split('.')[0] < 8) {
+// 		throw new Error('Node 8.0.0 or higher is required. Please upgrade / update Node.js on your computer / server.')
+// 	}
+// }
+// catch (e) {
+// 	console.error(e.stack)
+// 	console.error('Current Node.js version: ' + process.version)
+// 	console.error('In case you´ve not installed any required module: \nPlease run \'npm install\' and ensure it passes with no errors!')
+// 	process.exit()
+// }
+
+const { Client, Collection } = require('discord.js');
 
 // Create a config file like the example-config.json
 // Put EXPERIMENTAL to 1 if you are developing!
-const { TOKEN, PREFIX, VERSION } = require('./config.js')
+const { TOKEN, PREFIX, VERSION, NODES } = require('./config.js')
 
-// File System from node
+const { PlayerManager } = require('discord.js-lavalink');
 const fs = require('fs');
 
-// lodash
-const _ = require('lodash')
+class MusicClient extends Client {
+	
+	constructor(...args) {
+		super(...args);
+		
+		this.player = null;
+		
+		this.on('ready', () => {
+			this.player = new PlayerManager(client, NODES, {
+				user: client.user.id,
+				shards: 0,
+			});
+			
+			console.log('Bot is online!');
+		}).on('error', console.error).on('warn', console.warn);
+	}
+	
+}
+const client = new MusicClient();
 
 // Creating a collection for the commands
-client.commands = new Discord.Collection();
+client.commands = new Collection();
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'))
 for (const file of commandFiles) {
 	const command = require(`./commands/${file}`);
@@ -33,12 +52,8 @@ for (const file of commandFiles) {
 	client.commands.set(command.name, command);
 }
 
-client.on('warn', console.warn)
-
-client.on('error', console.error)
-
 client.on('ready', async () => {
-	console.log('#####################\nStarting Bot...\nNode version: ' + process.version + '\nDiscord.js version: ' + Discord.version + '\n#####################\n')
+	console.log('#####################\nStarting Bot...\nNode version: ' + process.version + '\n#####################\n')
 	console.log(client.user.username + ' is online! Running on v' + VERSION)
 	client.user.setPresence({
 		status: 'online',
@@ -81,17 +96,11 @@ client.on('guildDelete', guild => {
 
 client.on('message', async message => {
 	if (message.isMentioned(client.user)) {
-		message.delete().catch(e => {
-			// TODO: How to handle this properly?
-			// console.error(e)
-			// message.channel.send('❌ Message to the owner of the server: **Please give the right permissions to me so I can delete this message.**')
-		})
-
 		// Send the message of the help command as a response to the user
 		client.commands.get('help').execute(message, null, { PREFIX, VERSION })
 	}
 
-	if (message.author.bot) return
+	if (message.author.bot || !message.guild) return
 	if (!message.content.startsWith(PREFIX)) return undefined
 
 	const args = message.content.split(' ')
@@ -104,7 +113,7 @@ client.on('message', async message => {
 	if (!client.commands.has(command)) return;
 
 	try {
-		client.commands.get(command).execute(message, args, { PREFIX, VERSION });
+		client.commands.get(command).execute(message, args, { PREFIX, VERSION }, client);
 	}
 	catch (error) {
 		console.error(error);

@@ -2,8 +2,10 @@
  * @fileOverview File with important functions for the bot
  * */
 
-const { PREFIX } = require('./../config.js')
 const radioList = require('./../radios')
+const logger = require('./logger')
+const { URLSearchParams } = require('url');
+const fetch = require('node-fetch')
 
 /**
  * Function which connects you to the web radio and plays music
@@ -11,59 +13,45 @@ const radioList = require('./../radios')
  * @param {Object} radio - Radio which should be played
  * @param {Message} message - Message object of Discord.js
  * @param {VoiceChannel} voiceChannel - The voice connection of the bot to the guild
+ * @param {MusicClient} client - Discord.js Client
  */
-exports.playRadio = (radio, message, voiceChannel) => {
-
-	// Check if the bot is already in the channel and if the user is in the same channel.
-	// If the bot and the user are in the same channel, the bot will not "rejoin" but he will
-	// change the radio. If they are both not in the same channel,
-	// the bot will check first if the user is in a channel and then tries to connect to it and tries to play the music-
-	if(message.guild.voiceConnection && message.member.voiceChannel.id === message.guild.voiceConnection.channel.id) {
-
-		message.channel.send(`🎵 Now playing **${radio.name}**!`)
-
-		// Playing the music!!
-		// eslint-disable-next-line no-unused-vars
-		const dispatcher = message.guild.voiceConnection.playStream(radio.stream_url)
-			.on('error', e => {console.log(e)})
-			.on('end', reason => {console.log(reason)})
-
-	}
-	else {
-
-		// If the user is in a channel
-		if (voiceChannel) {
-			// Then try to join his channel
-			voiceChannel.join().then(connection => {
-
-				// logging channel data
-				console.log('Joined Channel and try to play music')
-
-				// Sending a response that the bot is now playing the music
-				message.channel.send(`🎵 Now playing **${radio.name}**!`)
-
-				// Playing the music!!!
-				const dispatcher = message.guild.voiceConnection.playStream(radio.stream_url)
-					.on('error', e => {console.log('error:'); console.log(e);})
-					.on('end', reason => {console.log('end:'); console.log(reason)})
-				// dispatcher.resume()
-
-				// Or catch any error
-			}).catch(e => {
-				// Error message
-				message.channel.send(`❌ I can´t play music. (${e})`)
-				console.error(e)
-			})
-
-		}
-		else {
-			// User must join a channel first before the bot can do something
-			message.reply('you need to join a voice channel first!').catch(e => {
-				console.log(`${message.guild.name} -> Error appeared: ${e}`)
-			})
-		}
-
-	}
+exports.playRadio = async (radio, message, voiceChannel, client) => {
+	
+	// Joining the channel of the user
+	const player = await client.player.join({
+		guild: message.guild.id,
+		channel: message.member.voiceChannelID,
+		host: client.player.nodes.first().host,
+	}, { selfdeaf: true });
+	
+	// If something went wrong, then return here
+	if (!player) return message.reply('Could not join');
+	
+	// Good ol' debugging
+	// console.log(player)
+	
+	// The song object returned by Lavalink
+	const [song] = await getSong(`${radio.stream_url}`, client)
+	// console.log(song)
+	
+	// Playing the track returned by Lavalink
+	player.updateVoiceState(message.member.voiceChannelID, { selfdeaf: false })
+	player.play(song.track);
+	
+	// eslint-disable-next-line quotes
+	logger.info(`Successfully playing a web radio on ${message.guild.name} (${message.guild.id}) - Radio: ${radio.name}`)
+	
+	// Error not good
+	player.once('error', logger.error);
+	// End? uhhh should not happen... lmao
+	player.once('end', async data => {
+		if (data.reason === 'REPLACED') return
+		message.channel.send('The web radio was stopped.')
+		await client.player.leave(message.guild.id)
+	})
+	
+	return message.channel.send(`Now playing: **${radio.name}**`)
+	
 
 }
 
@@ -144,4 +132,28 @@ exports.getRadiosEmbed = (category, command, prefix, message) => {
 	// Returning the embed object
 	return embed
 
+}
+
+/**
+ * Getting the song array from Lavalink
+ *
+ * @param {String} url - Stream url of the web radio
+ * @param {MusicClient} client - The MusicClient client of the bot
+ *
+ * @return Song array
+ *
+ * */
+function getSong(url, client) {
+	const node = client.player.nodes.first();
+	
+	const params = new URLSearchParams();
+	params.append('identifier', url);
+	
+	return fetch(`http://${node.host}:${node.port}/loadtracks?${params.toString()}`, { headers: { Authorization: node.password } })
+		.then(res => res.json())
+		.then(data => data.tracks)
+		.catch(err => {
+			console.error(err);
+			return null;
+		});
 }

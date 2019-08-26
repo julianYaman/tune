@@ -10,3 +10,6 @@ node_modules
 # lock Files
 package-lock.json
 yarn.lock
+
+# Bot logs
+logs

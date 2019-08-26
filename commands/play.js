@@ -11,7 +11,7 @@ module.exports = {
 	name: 'play',
 	alias: 'radio',
 	description: 'Playing a web radio',
-	execute(message, args, config) {
+	execute(message, args, config, client) {
 
 		// FOR BOT OWNERS WITH OWN LISTS, SET CATEGORYLIST TO FALSE
 		// IF YOU HAVE AN UNCATEGORIZED LIST OF RADIOS NOT LIKE THE
@@ -73,7 +73,7 @@ module.exports = {
 			selectedRadio = (selectedRadio === 0) ? 0 : selectedRadio - 1
 
 			// Play the radio
-			radioManager.playRadio(radiolist[genre][selectedRadio], message, message.member.voiceChannel)
+			radioManager.playRadio(radiolist[genre][selectedRadio], message, message.member.voiceChannel, client)
 
 		}
 

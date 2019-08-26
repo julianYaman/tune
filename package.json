@@ -5,10 +5,13 @@
   "main": "main.js",
   "dependencies": {
     "discord.js": "^11.5.1",
+    "discord.js-lavalink": "^2.2.3",
     "ffmpeg-binaries": "^4.0.0",
     "lodash": "^4.17.15",
+    "node-fetch": "^2.6.0",
     "node-opus": "^0.3.2",
-    "readme-md-generator": "^0.6.1"
+    "readme-md-generator": "^0.6.1",
+    "winston": "^3.2.1"
   },
   "devDependencies": {
     "eslint": "^6.2.2",
