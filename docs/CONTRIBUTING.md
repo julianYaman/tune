@@ -3,7 +3,7 @@
 If you are interested into contributing to this project, feel free to fork this repository and to submit a pull request with
 the changes you made. In future, a special code style will be enforced in all JavaScript files.
 
-**The main recommendation is to use the *standard* code style.**
+**The main recommendation is to use *ESLint* for the code style. You can lint with `npm run make-ready`**
 
 ## Checklist and Contributing guidelines
 
@@ -44,6 +44,7 @@ Here is an [example](https://github.com/julianYaman/tune/blob/master/example.con
 The name should contain the type of change you are doing (e.g. `update-xyz-command`). *You don't have to do this.*
 8. Code what you want. (Read **What you need to consider when you code**)
 9. Try out your changes and new features with `npm run dev` (nodemon should be installed before using this command).
-10. [Submit a pull request.](https://github.com/julianYaman/tune/pull/new/master)
+10. Fix linting issues from ESLint manually or with `npm run make-ready`.
+11. [Submit a pull request.](https://github.com/julianYaman/tune/pull/new/master)
 
 When you submit a pull request, please follow the template.
