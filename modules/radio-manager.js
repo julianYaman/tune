@@ -45,6 +45,7 @@ exports.playRadio = async (radio, message, voiceChannel, client) => {
 	player.once('error', logger.error);
 	// End? uhhh should not happen... lmao
 	player.once('end', async data => {
+		logger.warn(`Web radio stopped on ${message.guild.name} (${message.guild.id}) - Radio: ${radio.name}`)
 		if (data.reason === 'REPLACED') return
 		message.channel.send('The web radio was stopped.')
 		await client.player.leave(message.guild.id)
