@@ -11,6 +11,7 @@
     "node-fetch": "^2.6.0",
     "node-opus": "^0.3.2",
     "readme-md-generator": "^0.6.1",
+    "sqlite3": "^4.1.0",
     "winston": "^3.2.1"
   },
   "devDependencies": {
@@ -18,6 +19,7 @@
     "nodemon": "^1.19.1"
   },
   "scripts": {
+    "setup": "node ./modules/init-database.js",
     "bot": "node main.js",
     "dev": "nodemon main.js",
     "make-ready": "eslint --fix"
