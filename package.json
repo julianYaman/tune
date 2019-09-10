@@ -4,10 +4,12 @@
   "description": "A brand-new Discord bot for listening live radio music.",
   "main": "main.js",
   "dependencies": {
+    "cli-color": "^1.4.0",
     "discord.js": "^11.5.1",
     "discord.js-lavalink": "^2.2.3",
     "ffmpeg-binaries": "^4.0.0",
     "lodash": "^4.17.15",
+    "moment": "^2.24.0",
     "node-fetch": "^2.6.0",
     "node-opus": "^0.3.2",
     "readme-md-generator": "^0.6.1",
