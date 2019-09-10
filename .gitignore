@@ -13,3 +13,6 @@ yarn.lock
 
 # Bot logs
 logs
+
+# Database
+tune
