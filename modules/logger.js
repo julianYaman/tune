@@ -1,5 +1,5 @@
 const { createLogger, format, transports } = require('winston');
-const { combine, printf } = format;
+const { combine, colorize, printf } = format;
 const moment = require('moment')
 
 // eslint-disable-next-line no-shadow
@@ -11,6 +11,7 @@ const myFormat = printf(({ level, message}) => {
 
 const logger = createLogger({
 	format: combine(
+		colorize(),
 		myFormat
 	),
 	transports: [
