@@ -22,6 +22,14 @@ const { TOKEN, PREFIX, VERSION, NODES } = require('./config.js')
 const { PlayerManager } = require('discord.js-lavalink');
 const fs = require('fs');
 
+const logger = require('./modules/logger')
+
+// Database stuff
+const databaseManager = require('./modules/database-manager')
+
+const db = databaseManager.init()
+databaseManager.query(db, `SELECT name FROM sqlite_master WHERE type='table' AND name='playing_on'`, [], databaseManager.checkTableExistence, 'playing_on')
+
 class MusicClient extends Client {
 	
 	constructor(...args) {
@@ -35,7 +43,10 @@ class MusicClient extends Client {
 				shards: 0,
 			});
 			
-			console.log('Bot is online!');
+			console.log('#####################\nStarting Bot...\nNode version: ' + process.version + '\n#####################\n')
+			console.log(client.user.username + ' is online! Running on v' + VERSION)
+			console.log(`Ready to serve on ${client.guilds.size} servers for a total of ${client.users.size} users.`)
+			logger.info('Bot is online!');
 		}).on('error', console.error).on('warn', console.warn);
 	}
 	
@@ -53,8 +64,6 @@ for (const file of commandFiles) {
 }
 
 client.on('ready', async () => {
-	console.log('#####################\nStarting Bot...\nNode version: ' + process.version + '\n#####################\n')
-	console.log(client.user.username + ' is online! Running on v' + VERSION)
 	client.user.setPresence({
 		status: 'online',
 		game: {
@@ -63,16 +72,15 @@ client.on('ready', async () => {
 	}).catch(e => {
 		console.error(e)
 	})
-	console.log(`Ready to serve on ${client.guilds.size} servers for a total of ${client.users.size} users.`)
 })
 
-client.on('disconnect', () => console.log('I disconnected currently but I will try to reconnect!'))
+client.on('disconnect', () => logger.error('Disconnected!'))
 
-client.on('reconnecting', () => console.log('Reconnecting...'))
+client.on('reconnecting', () => logger.warn('Reconnecting...'))
 
 // This event triggers only when the bot joins a guild.
 client.on('guildCreate', guild => {
-	console.log(`Joined a new guild -> ${guild.name}. (id: ${guild.id}) This guild has ${guild.memberCount} members!`)
+	logger.info(`Joined a new guild -> ${guild.name}. (id: ${guild.id}) This guild has ${guild.memberCount} members!`)
 	client.user.setPresence({
 		game: {
 			name: `radio music on ${client.guilds.size} servers! ${PREFIX}help`,
@@ -84,7 +92,7 @@ client.on('guildCreate', guild => {
 
 // This event triggers only when the bot is removed from a guild.
 client.on('guildDelete', guild => {
-	console.log(`I have been removed from -> ${guild.name}. (id: ${guild.id})`)
+	logger.info(`I have been removed from -> ${guild.name}. (id: ${guild.id})`)
 	client.user.setPresence({
 		game: {
 			name: `radio music on ${client.guilds.size} servers! ${PREFIX}help`,
@@ -116,8 +124,8 @@ client.on('message', async message => {
 		client.commands.get(command).execute(message, args, { PREFIX, VERSION }, client);
 	}
 	catch (error) {
-		console.error(error);
-		message.reply('there was an error trying to execute that command!');
+		logger.error(error);
+		await message.reply('there was an error trying to execute that command!');
 	}
 
 })
