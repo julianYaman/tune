@@ -20,7 +20,7 @@ let db = new sqlite3.Database('tune', (err) => {
 })
 
 // Creating the table playing_on
-db.run('CREATE TABLE playing_on(guild_id integer, channel text, stream_url text)', [], err => {
+db.run('CREATE TABLE playing_on(guild_id integer, channel text, stream_url text, playing boolean)', [], err => {
 	if (err) {
 		return console.error(clc.red('[3/4] ' + err.message))
 	}
