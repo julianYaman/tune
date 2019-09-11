@@ -29,7 +29,7 @@ to this bot (in case *you* are the owner or an authorized person to do that) and
 We also support self-hosting. This means, that you can clone or download this repository and add your own radios
 to this list in case you want to have more control over the bot. 
 
-**Check out [this guide](https://github.com/julianYaman/tune/blob/master/docs/BOTOWNER.md) when you want to use it on your own server.**
+**For bot owners: Check out [this guide](https://github.com/julianYaman/tune/blob/master/docs/BOTOWNER.md) when you want to use it on your own (virtual) server.**
 
 Disclaimer: We are NOT responsible for any copyright claim or legal issues when you run this bot by your own.
 

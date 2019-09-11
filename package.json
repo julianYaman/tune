@@ -24,7 +24,7 @@
     "setup": "node ./modules/init-database.js",
     "bot": "node main.js",
     "dev": "nodemon main.js",
-    "make-ready": "eslint --fix"
+    "lint": "eslint --fix"
   },
   "repository": {
     "type": "git",

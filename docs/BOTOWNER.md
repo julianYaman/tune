@@ -7,6 +7,8 @@ the bot easily and fast.
 
 ### - Install [node.js and npm](https://nodejs.org/en/)
 
+### - Install [SQLite](https://sqlite.org/download.html)
+
 ### - Clone or download the latest [stable release](https://github.com/julianYaman/tune/releases) of the bot
 
 ###  - Install all modules
@@ -34,6 +36,14 @@ Run it with
 java -jar Lavalink.jar
 ```
 when you want to start the bot later.
+
+### - Setup the database and the table
+```
+npm run setup
+```
+Run this command to setup the database for the bot and to create the table in the database.
+
+The console output will show you if it was successfully created or if an error happened.
 
 ### - Create a config file
 
