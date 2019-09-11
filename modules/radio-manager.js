@@ -6,6 +6,7 @@ const radioList = require('./../radios')
 const logger = require('./logger')
 const { URLSearchParams } = require('url');
 const fetch = require('node-fetch')
+const databaseManager = require('./../modules/database-manager')
 
 /**
  * Function which connects you to the web radio and plays music
@@ -15,6 +16,9 @@ const fetch = require('node-fetch')
  * @param {VoiceChannel} voiceChannel - The voice connection of the bot to the guild
  * @param {MusicClient} client - Discord.js Client
  */
+
+const db = databaseManager.init()
+
 exports.playRadio = async (radio, message, voiceChannel, client) => {
 	
 	// Joining the channel of the user
@@ -37,6 +41,16 @@ exports.playRadio = async (radio, message, voiceChannel, client) => {
 	// Playing the track returned by Lavalink
 	player.updateVoiceState(message.member.voiceChannelID, { selfdeaf: false })
 	player.play(song.track);
+	
+	databaseManager.query(db, 'SELECT guild_id FROM playing_on WHERE guild_id = ' + message.guild.id,
+		[],
+		checkSQLGuildEntry,
+		{
+			'guild_id': message.guild.id,
+			'channel': message.member.voiceChannelID,
+			'stream_url': radio.stream_url,
+			'playing': true
+		})
 	
 	// eslint-disable-next-line quotes
 	logger.info(`Successfully playing a web radio on ${message.guild.name} (${message.guild.id}) - Radio: ${radio.name}`)
@@ -157,4 +171,24 @@ function getSong(url, client) {
 			console.error(err);
 			return null;
 		});
+}
+
+/**
+ * Checking if the guild has an entry in the table and inserting it if it has not.
+ *
+ * @param {Array} row - Result of the SQL query
+ * @param radio - Object with necessary values for inserting / updating the guild in the table
+ *
+ * */
+function checkSQLGuildEntry(row, radio) {
+	
+	if(row.length === 0) {
+		// Adding the server to the table
+		databaseManager.query(db, `INSERT INTO playing_on VALUES (${radio.guild_id}, ${radio.channel}, "${radio.stream_url}", ${radio.playing})`, [], null)
+		logger.info(`New server (${radio.guild_id}) added to the table.`)
+	} else {
+		// Updating the stream_url and channel id when guild does already exists in the local database
+		databaseManager.query(db, `UPDATE playing_on SET stream_url = "${radio.stream_url}", channel = ${radio.channel} WHERE guild_id = ${radio.guild_id}`, [], null)
+		logger.info(`Updated server (${radio.guild_id}) in the table.`)
+	}
 }
