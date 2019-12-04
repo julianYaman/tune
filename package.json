@@ -10,7 +10,7 @@
     "lodash": "^4.17.15",
     "node-fetch": "^2.6.0",
     "node-opus": "^0.3.2",
-    "readme-md-generator": "^0.6.1",
+    "readme-md-generator": "^1.0.0",
     "winston": "^3.2.1"
   },
   "devDependencies": {
